@@ -1,6 +1,9 @@
 # Changelog
 
-## [Unreleased]
+## [0.1.0] — 2026-10-17
+
+First release of the control tower, with three modules that speak the contract: Cleanator
+0.2.0, MCProster 0.2.1, Permitt 0.2.0.
 
 - Desktop app `bbl-app` (iced, `bbl-ui`): the sentence, the four severities, the module
   cards with the modules' own figures, the list and the detail, open-in-module; saved

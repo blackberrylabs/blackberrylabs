@@ -86,3 +86,25 @@ rapports en fixtures.
 - Reste pour la release : un passage reel sur la machine d'Alexandre, qui suppose que les
   trois modules y soient reconstruits avec `report` (leurs paquets installes sont les
   anciens).
+
+## 2026-10-17 — passage reel
+
+`bbl refresh` sur la machine d'Alexandre, les trois modules reconstruits avec `report` dans
+`~/.local/bin` (les paquets installes sont encore les anciens) : Cleanator 22 constats en
+5,1 s, MCProster 1, Permitt 12 — 0 a agir maintenant, 17 a regarder, 7 bon a savoir,
+11 informations. Les gros volumes de Cleanator (target/ 31,8 Go, sauvegardes 27,9 Go,
+archives 19,1 Go) arrivent bien en « a regarder » (≥ 1 Gio), avec le dossier a ouvrir et
+« Open in Cleanator » sur le bon groupe. Rien a corriger dans la tour. Pour que ca marche
+chez quelqu'un d'autre, il faut que les trois modules soient publies avec `report` :
+c'est la prochaine decision (ordre des releases, numeros de version).
+
+## 2026-10-17 — idee d'Alexandre : la tour comme porte d'entree
+
+« Le mieux plus tard, ce ne serait pas de promouvoir la tour de controle et, depuis la tour,
+choisir les modules dont on a besoin ? Et quand on clique, ca telecharge le module depuis
+GitHub. » Oui pour la posture : la tour est le produit, les modules ses extensions, et la
+vitrine (cartes en pointille, « Get it ») existe deja. Reserve sur le telechargement par la
+tour elle-meme : R3 (aucune sortie reseau) est une des promesses qui rendent la famille
+credible. Piste pour 0.2, a trancher : la tour ouvre directement le bon fichier de la bonne
+release (deb / rpm / AppImage selon `/etc/os-release`), le navigateur telecharge — un clic,
+zero reseau dans la tour. Et le README d'organisation presente la tour en premier.
