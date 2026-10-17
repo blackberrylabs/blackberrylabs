@@ -3,6 +3,31 @@
 
 ---
 
+## 2026-10-17, soir — un logiciel, pas un lanceur ; une installation, pas six
+
+- **Premier usage par Alexandre** : « quand je clique sur un module, ca ouvre l'autre
+  logiciel a cote ; on a l'impression d'avoir un logiciel, mais il en ouvre un autre ».
+  Decision T6 : la carte d'un module est un filtre, le volet montre le module (chiffres,
+  rapport, constats par gravite), son application ne s'ouvre que par « Open in … ↗ » dans
+  le volet. Premiere correction insuffisante (le bouton restait sur la carte) ; retiree.
+- **« Get it » ne telechargeait rien** : il ouvrait la page des releases. Desormais le
+  paquet exact de la machine, derniere version connue par la fiche (`latest`) ; R3 intact.
+- **Le modele d'Alexandre, ecrit partout** : « celui qui veut un seul module l'a tel quel ;
+  celui qui en veut plusieurs va sur la tour et choisit ». Et : « il faut que la tour soit
+  le seul logiciel installe » → paquet complet `blackberrylabs-full` (tour + binaires
+  publies des cinq modules, `Provides`/`Conflicts` avec les unitaires), tour legere gardee ;
+  les modules sont cherches a cote du binaire de la tour (AppImage). 0.3.1 le soir meme :
+  les entrees de menu des modules masquees dans le complet (Alexandre les voyait encore).
+- **Coherence publique** (audit SEO du jour, `Logiciels/audit.md`) : phrase de famille
+  validee, six descriptions, topics corriges (`agents-md` mort → `agentsmd`, topic
+  `blackberrylabs` garde comme hub, topics mensongers retires de Billfold), `homepage` des
+  modules vers la tour, description d'organisation — tout par `packaging/github_meta.sh`,
+  source de verite ; hubs (README de la tour, profil, « Part of Blackberrylabs » uniforme)
+  avec Billfold. Ecarte : Discussions auto-posees, wiki, Pages par depot, crates.io pour
+  bbl-ui et bbl-report.
+- **Lecon** : deux fois ce soir ma copie en retard a failli ecraser des fichiers a jour
+  (README, CHANGELOG) ; toujours partir du fichier de la machine, jamais de la copie.
+
 ## 2026-10-16, naissance
 
 - Idee du 07/10 (une app pour piloter tous les projets d'Alexandre), redefinie le 16/10 au
