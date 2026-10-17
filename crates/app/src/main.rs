@@ -417,14 +417,9 @@ impl App {
     fn view_module(&self, m: &ModuleStatus) -> Element<'_, Message> {
         let s = &self.strings;
         let running = self.running.contains(&m.spec.id);
-        let mut head = row![text(m.spec.name.clone()).size(14), horizontal_space()].align_y(Alignment::Center).spacing(8);
-        if m.installed {
-            if let Some(app) = &m.spec.app {
-                if m.app.is_some() {
-                    head = head.push(small_button(s.t("module.open_in", &[("module", &m.spec.name)]), Message::OpenModule(app.clone(), vec![])));
-                }
-            }
-        }
+        // No "open" on the card: the card is a filter (T6); the module's own app opens from
+        // the pane only, by an explicit "Open in …" button.
+        let head = row![text(m.spec.name.clone()).size(14), horizontal_space()].align_y(Alignment::Center).spacing(8);
         if !m.installed {
             // The showcase: what the module does, and where to take it from.
             let what = if m.spec.description.is_empty() { m.spec.tagline.clone() } else { m.spec.description.clone() };
