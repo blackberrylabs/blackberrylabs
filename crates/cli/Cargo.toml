@@ -1,0 +1,19 @@
+[package]
+name = "bbl-cli"
+description = "Command line of the Blackberrylabs control tower"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "bbl"
+path = "src/main.rs"
+
+[dependencies]
+bbl-core = { path = "../core" }
+bbl-report.workspace = true
+anyhow.workspace = true
+clap.workspace = true
+serde_json.workspace = true

@@ -1,0 +1,892 @@
+{
+  "schema": "bbl-report/1",
+  "module": {
+    "id": "mcproster",
+    "name": "MCProster",
+    "version": "0.2.1",
+    "verb": "inventory",
+    "tagline": "Every MCP server declared on your machine, in one list",
+    "app": "mcproster-app",
+    "cli": "mcproster",
+    "home": "https://github.com/blackberrylabs/mcproster"
+  },
+  "generated_at": "2026-10-17T06:11:47Z",
+  "duration_ms": 1041,
+  "summary": [
+    {
+      "key": "servers",
+      "label": "Servers",
+      "value": "19",
+      "tone": "neutral"
+    },
+    {
+      "key": "hosts",
+      "label": "Hosts with a configuration",
+      "value": "19",
+      "tone": "neutral"
+    },
+    {
+      "key": "findings",
+      "label": "Findings",
+      "value": "21",
+      "tone": "alert"
+    },
+    {
+      "key": "secrets",
+      "label": "Secrets in clear",
+      "value": "3",
+      "tone": "alert"
+    }
+  ],
+  "findings": [
+    {
+      "id": "plain-secret/openai-mcp",
+      "severity": 1,
+      "kind": "plain-secret",
+      "title": "openai (Claude Desktop): OPENAI_API_KEY written in clear",
+      "subject": {
+        "kind": "server",
+        "label": "openai-mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.config/Claude/claude_desktop_config.json:17 — `openai` (Claude Desktop)",
+          "path": "/home/me/.config/Claude/claude_desktop_config.json",
+          "line": 17
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Claude Desktop: edit the entry in its own settings, then restart it"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "openai-mcp"
+        ]
+      }
+    },
+    {
+      "id": "plain-secret/https-leaky-example-com-mcp",
+      "severity": 1,
+      "kind": "plain-secret",
+      "title": "leaky (Codex CLI): Authorization written in clear",
+      "subject": {
+        "kind": "server",
+        "label": "https://leaky.example.com/mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.codex/config.toml:11 — `leaky` (Codex CLI)",
+          "path": "/home/me/.codex/config.toml",
+          "line": 11
+        }
+      ],
+      "actions": [
+        {
+          "kind": "command",
+          "label": "Codex CLI: run",
+          "target": "codex mcp remove leaky"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "https://leaky.example.com/mcp"
+        ]
+      }
+    },
+    {
+      "id": "plain-secret/https-huggingface-co-mcp-login-true-api-key-012345-cdef",
+      "severity": 1,
+      "kind": "plain-secret",
+      "title": "hf (LM Studio): url written in clear",
+      "subject": {
+        "kind": "server",
+        "label": "https://huggingface.co/mcp?login=true&api_key=012345…cdef"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.lmstudio/mcp.json:3 — `hf` (LM Studio)",
+          "path": "/home/me/.lmstudio/mcp.json",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open ~/.lmstudio/mcp.json",
+          "target": "/home/me/.lmstudio/mcp.json"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "https://huggingface.co/mcp?login=true&api_key=012345…cdef"
+        ]
+      }
+    },
+    {
+      "id": "wide-access/modelcontextprotocol-server-filesystem",
+      "severity": 2,
+      "kind": "wide-access",
+      "title": "filesystem (Claude Desktop): access to /home",
+      "subject": {
+        "kind": "server",
+        "label": "@modelcontextprotocol/server-filesystem"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.config/Claude/claude_desktop_config.json:9 — `filesystem` (Claude Desktop)",
+          "path": "/home/me/.config/Claude/claude_desktop_config.json",
+          "line": 9
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Claude Desktop: edit the entry in its own settings, then restart it"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "@modelcontextprotocol/server-filesystem"
+        ]
+      }
+    },
+    {
+      "id": "confirmations-skipped/playwright-mcp",
+      "severity": 2,
+      "kind": "confirmations-skipped",
+      "title": "playwright (Gemini CLI): tool confirmations skipped (trust / autoApprove / alwaysAllow)",
+      "subject": {
+        "kind": "server",
+        "label": "@playwright/mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.gemini/settings.json:4 — `playwright` (Gemini CLI)",
+          "path": "/home/me/.gemini/settings.json",
+          "line": 4
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open ~/.gemini/settings.json",
+          "target": "/home/me/.gemini/settings.json"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "@playwright/mcp"
+        ]
+      }
+    },
+    {
+      "id": "confirmations-skipped/awslabs-aws-documentation-mcp-server",
+      "severity": 2,
+      "kind": "confirmations-skipped",
+      "title": "aws-docs (Kiro): tool confirmations skipped (trust / autoApprove / alwaysAllow)",
+      "subject": {
+        "kind": "server",
+        "label": "awslabs.aws-documentation-mcp-server"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.kiro/settings/mcp.json:3 — `aws-docs` (Kiro)",
+          "path": "/home/me/.kiro/settings/mcp.json",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open ~/.kiro/settings/mcp.json",
+          "target": "/home/me/.kiro/settings/mcp.json"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "awslabs.aws-documentation-mcp-server"
+        ]
+      }
+    },
+    {
+      "id": "command-not-found/old-mcp",
+      "severity": 3,
+      "kind": "command-not-found",
+      "title": "old (Visual Studio Code (Copilot)): command `old-mcp` not found",
+      "subject": {
+        "kind": "server",
+        "label": "old-mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.config/Code/User/settings.json:4 — `old` (Visual Studio Code (Copilot))",
+          "path": "/home/me/.config/Code/User/settings.json",
+          "line": 4
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/Code/User/settings.json",
+          "target": "/home/me/.config/Code/User/settings.json"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "old-mcp"
+        ]
+      }
+    },
+    {
+      "id": "command-not-found/ghost-mcp",
+      "severity": 3,
+      "kind": "command-not-found",
+      "title": "ghost (Zed): command `ghost-mcp` not found",
+      "subject": {
+        "kind": "server",
+        "label": "ghost-mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.config/zed/settings.json:5 — `ghost` (Zed)",
+          "path": "/home/me/.config/zed/settings.json",
+          "line": 5
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/zed/settings.json",
+          "target": "/home/me/.config/zed/settings.json"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "ghost-mcp"
+        ]
+      }
+    },
+    {
+      "id": "version-mismatch/modelcontextprotocol-server-filesystem",
+      "severity": 3,
+      "kind": "version-mismatch",
+      "title": "`@modelcontextprotocol/server-filesystem`: versions differ (1.2.0 / 1.3.0)",
+      "subject": {
+        "kind": "server",
+        "label": "@modelcontextprotocol/server-filesystem"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.config/Claude/claude_desktop_config.json:9 — `filesystem` (Claude Desktop)",
+          "path": "/home/me/.config/Claude/claude_desktop_config.json",
+          "line": 9
+        },
+        {
+          "label": "~/projects/alpha/.cursor/mcp.json:3 — `filesystem` (Cursor)",
+          "path": "/home/me/projects/alpha/.cursor/mcp.json",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Claude Desktop: edit the entry in its own settings, then restart it"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/Claude/claude_desktop_config.json",
+          "target": "/home/me/.config/Claude/claude_desktop_config.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/projects/alpha/.cursor/mcp.json",
+          "target": "/home/me/projects/alpha/.cursor/mcp.json"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "@modelcontextprotocol/server-filesystem"
+        ]
+      }
+    },
+    {
+      "id": "version-mismatch/playwright-mcp",
+      "severity": 3,
+      "kind": "version-mismatch",
+      "title": "`@playwright/mcp`: versions differ (0.0.29 / 0.0.30)",
+      "subject": {
+        "kind": "server",
+        "label": "@playwright/mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.config/amp/settings.json:3 — `playwright` (Amp)",
+          "path": "/home/me/.config/amp/settings.json",
+          "line": 3
+        },
+        {
+          "label": "~/.gemini/settings.json:4 — `playwright` (Gemini CLI)",
+          "path": "/home/me/.gemini/settings.json",
+          "line": 4
+        },
+        {
+          "label": "~/projects/alpha/.vscode/mcp.json:5 — `playwright` (Visual Studio Code (Copilot))",
+          "path": "/home/me/projects/alpha/.vscode/mcp.json",
+          "line": 5
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/amp/settings.json",
+          "target": "/home/me/.config/amp/settings.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.gemini/settings.json",
+          "target": "/home/me/.gemini/settings.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/projects/alpha/.vscode/mcp.json",
+          "target": "/home/me/projects/alpha/.vscode/mcp.json"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "@playwright/mcp"
+        ]
+      }
+    },
+    {
+      "id": "duplicate/modelcontextprotocol-server-filesystem",
+      "severity": 3,
+      "kind": "duplicate",
+      "title": "`@modelcontextprotocol/server-filesystem` declared 2 times: Claude Desktop (1.2.0), Cursor (1.3.0)",
+      "subject": {
+        "kind": "server",
+        "label": "@modelcontextprotocol/server-filesystem"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.config/Claude/claude_desktop_config.json:9 — `filesystem` (Claude Desktop)",
+          "path": "/home/me/.config/Claude/claude_desktop_config.json",
+          "line": 9
+        },
+        {
+          "label": "~/projects/alpha/.cursor/mcp.json:3 — `filesystem` (Cursor)",
+          "path": "/home/me/projects/alpha/.cursor/mcp.json",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Claude Desktop: edit the entry in its own settings, then restart it"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/Claude/claude_desktop_config.json",
+          "target": "/home/me/.config/Claude/claude_desktop_config.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/projects/alpha/.cursor/mcp.json",
+          "target": "/home/me/projects/alpha/.cursor/mcp.json"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "@modelcontextprotocol/server-filesystem"
+        ]
+      }
+    },
+    {
+      "id": "duplicate/playwright-mcp",
+      "severity": 3,
+      "kind": "duplicate",
+      "title": "`@playwright/mcp` declared 3 times: Amp (0.0.29), Gemini CLI (0.0.30), Visual Studio Code (Copilot) (0.0.30)",
+      "subject": {
+        "kind": "server",
+        "label": "@playwright/mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.config/amp/settings.json:3 — `playwright` (Amp)",
+          "path": "/home/me/.config/amp/settings.json",
+          "line": 3
+        },
+        {
+          "label": "~/.gemini/settings.json:4 — `playwright` (Gemini CLI)",
+          "path": "/home/me/.gemini/settings.json",
+          "line": 4
+        },
+        {
+          "label": "~/projects/alpha/.vscode/mcp.json:5 — `playwright` (Visual Studio Code (Copilot))",
+          "path": "/home/me/projects/alpha/.vscode/mcp.json",
+          "line": 5
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/amp/settings.json",
+          "target": "/home/me/.config/amp/settings.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.gemini/settings.json",
+          "target": "/home/me/.gemini/settings.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/projects/alpha/.vscode/mcp.json",
+          "target": "/home/me/projects/alpha/.vscode/mcp.json"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "@playwright/mcp"
+        ]
+      }
+    },
+    {
+      "id": "duplicate/upstash-context7-mcp",
+      "severity": 3,
+      "kind": "duplicate",
+      "title": "`@upstash/context7-mcp` declared 2 times: Codex CLI, OpenCode",
+      "subject": {
+        "kind": "server",
+        "label": "@upstash/context7-mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.codex/config.toml:3 — `context7` (Codex CLI)",
+          "path": "/home/me/.codex/config.toml",
+          "line": 3
+        },
+        {
+          "label": "~/.config/opencode/opencode.jsonc:5 — `context7` (OpenCode)",
+          "path": "/home/me/.config/opencode/opencode.jsonc",
+          "line": 5
+        }
+      ],
+      "actions": [
+        {
+          "kind": "command",
+          "label": "Codex CLI: run",
+          "target": "codex mcp remove context7"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.codex/config.toml",
+          "target": "/home/me/.codex/config.toml"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/opencode/opencode.jsonc",
+          "target": "/home/me/.config/opencode/opencode.jsonc"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "@upstash/context7-mcp"
+        ]
+      }
+    },
+    {
+      "id": "duplicate/apipriceindex-mcp",
+      "severity": 3,
+      "kind": "duplicate",
+      "title": "`apipriceindex-mcp` declared 2 times: Claude Code, Claude Desktop",
+      "subject": {
+        "kind": "server",
+        "label": "apipriceindex-mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.claude.json:4 — `apipriceindex` (Claude Code)",
+          "path": "/home/me/.claude.json",
+          "line": 4
+        },
+        {
+          "label": "~/.config/Claude/claude_desktop_config.json:6 — `apipriceindex` (Claude Desktop)",
+          "path": "/home/me/.config/Claude/claude_desktop_config.json",
+          "line": 6
+        }
+      ],
+      "actions": [
+        {
+          "kind": "command",
+          "label": "Claude Code: run",
+          "target": "claude mcp remove apipriceindex --scope user"
+        },
+        {
+          "kind": "hint",
+          "label": "Claude Desktop: edit the entry in its own settings, then restart it"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "apipriceindex-mcp"
+        ]
+      }
+    },
+    {
+      "id": "duplicate/https-api-githubcopilot-com-mcp",
+      "severity": 3,
+      "kind": "duplicate",
+      "title": "`https://api.githubcopilot.com/mcp` declared 2 times: Claude Code, GitHub Copilot CLI",
+      "subject": {
+        "kind": "server",
+        "label": "https://api.githubcopilot.com/mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.claude.json:12 — `github` (Claude Code)",
+          "path": "/home/me/.claude.json",
+          "line": 12
+        },
+        {
+          "label": "~/.copilot/mcp-config.json:3 — `github` (GitHub Copilot CLI)",
+          "path": "/home/me/.copilot/mcp-config.json",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "command",
+          "label": "Claude Code: run",
+          "target": "claude mcp remove github --scope local"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.claude.json",
+          "target": "/home/me/.claude.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.copilot/mcp-config.json",
+          "target": "/home/me/.copilot/mcp-config.json"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "https://api.githubcopilot.com/mcp"
+        ]
+      }
+    },
+    {
+      "id": "duplicate/node-tools-weather-index-js",
+      "severity": 3,
+      "kind": "duplicate",
+      "title": "`node ~/tools/weather/index.js` declared 2 times: Cline, Roo Code",
+      "subject": {
+        "kind": "server",
+        "label": "node ~/tools/weather/index.js"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.cline/data/settings/cline_mcp_settings.json:3 — `weather` (Cline)",
+          "path": "/home/me/.cline/data/settings/cline_mcp_settings.json",
+          "line": 3
+        },
+        {
+          "label": "~/.config/Code/User/globalStorage/rooveterinaryinc.roo-cline/settings/mcp_settings.json:3 — `weather` (Roo Code)",
+          "path": "/home/me/.config/Code/User/globalStorage/rooveterinaryinc.roo-cline/settings/mcp_settings.json",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open ~/.cline/data/settings/cline_mcp_settings.json",
+          "target": "/home/me/.cline/data/settings/cline_mcp_settings.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/Code/User/globalStorage/rooveterinaryinc.roo-cline/settings/mcp_settings.json",
+          "target": "/home/me/.config/Code/User/globalStorage/rooveterinaryinc.roo-cline/settings/mcp_settings.json"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "node /home/me/tools/weather/index.js"
+        ]
+      }
+    },
+    {
+      "id": "unreadable/codeium-windsurf-mcp-config-json",
+      "severity": 4,
+      "kind": "unreadable",
+      "title": "~/.codeium/windsurf/mcp_config.json (Windsurf (Cascade)): invalid JSON: expected `,` or `}` at line 1 column 46",
+      "subject": {
+        "kind": "file",
+        "label": "~/.codeium/windsurf/mcp_config.json"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.codeium/windsurf/mcp_config.json",
+          "path": "/home/me/.codeium/windsurf/mcp_config.json"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open ~/.codeium/windsurf/mcp_config.json",
+          "target": "/home/me/.codeium/windsurf/mcp_config.json"
+        }
+      ]
+    },
+    {
+      "id": "package-not-cached/openai-mcp",
+      "severity": 4,
+      "kind": "package-not-cached",
+      "title": "openai (Claude Desktop): `openai-mcp` is not in the local cache — it will be downloaded at first start",
+      "subject": {
+        "kind": "server",
+        "label": "openai-mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.config/Claude/claude_desktop_config.json:17 — `openai` (Claude Desktop)",
+          "path": "/home/me/.config/Claude/claude_desktop_config.json",
+          "line": 17
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Claude Desktop: edit the entry in its own settings, then restart it"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "openai-mcp"
+        ]
+      }
+    },
+    {
+      "id": "package-not-cached/upstash-context7-mcp",
+      "severity": 4,
+      "kind": "package-not-cached",
+      "title": "context7 (Codex CLI): `@upstash/context7-mcp` is not in the local cache — it will be downloaded at first start",
+      "subject": {
+        "kind": "server",
+        "label": "@upstash/context7-mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.codex/config.toml:3 — `context7` (Codex CLI)",
+          "path": "/home/me/.codex/config.toml",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "command",
+          "label": "Codex CLI: run",
+          "target": "codex mcp remove context7"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "@upstash/context7-mcp"
+        ]
+      }
+    },
+    {
+      "id": "package-not-cached/modelcontextprotocol-server-memory",
+      "severity": 4,
+      "kind": "package-not-cached",
+      "title": "memory (Continue): `@modelcontextprotocol/server-memory` is not in the local cache — it will be downloaded at first start",
+      "subject": {
+        "kind": "server",
+        "label": "@modelcontextprotocol/server-memory"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.continue/config.yaml:4 — `memory` (Continue)",
+          "path": "/home/me/.continue/config.yaml",
+          "line": 4
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open ~/.continue/config.yaml",
+          "target": "/home/me/.continue/config.yaml"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "@modelcontextprotocol/server-memory"
+        ]
+      }
+    },
+    {
+      "id": "package-not-cached/upstash-context7-mcp#2",
+      "severity": 4,
+      "kind": "package-not-cached",
+      "title": "context7 (OpenCode): `@upstash/context7-mcp` is not in the local cache — it will be downloaded at first start",
+      "subject": {
+        "kind": "server",
+        "label": "@upstash/context7-mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.config/opencode/opencode.jsonc:5 — `context7` (OpenCode)",
+          "path": "/home/me/.config/opencode/opencode.jsonc",
+          "line": 5
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/opencode/opencode.jsonc",
+          "target": "/home/me/.config/opencode/opencode.jsonc"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "@upstash/context7-mcp"
+        ]
+      }
+    },
+    {
+      "id": "disabled/https-leaky-example-com-mcp",
+      "severity": 4,
+      "kind": "disabled",
+      "title": "leaky (Codex CLI): declared but disabled",
+      "subject": {
+        "kind": "server",
+        "label": "https://leaky.example.com/mcp"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.codex/config.toml:11 — `leaky` (Codex CLI)",
+          "path": "/home/me/.codex/config.toml",
+          "line": 11
+        }
+      ],
+      "actions": [
+        {
+          "kind": "command",
+          "label": "Codex CLI: run",
+          "target": "codex mcp remove leaky"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "https://leaky.example.com/mcp"
+        ]
+      }
+    },
+    {
+      "id": "disabled/awslabs-aws-documentation-mcp-server",
+      "severity": 4,
+      "kind": "disabled",
+      "title": "aws-docs (Kiro): declared but disabled",
+      "subject": {
+        "kind": "server",
+        "label": "awslabs.aws-documentation-mcp-server"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/.kiro/settings/mcp.json:3 — `aws-docs` (Kiro)",
+          "path": "/home/me/.kiro/settings/mcp.json",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open ~/.kiro/settings/mcp.json",
+          "target": "/home/me/.kiro/settings/mcp.json"
+        }
+      ],
+      "open": {
+        "app": "mcproster-app",
+        "args": [
+          "--select",
+          "awslabs.aws-documentation-mcp-server"
+        ]
+      }
+    }
+  ],
+  "notes": [
+    "26 declaration(s) in 27 file(s)",
+    "2 project root(s) looked at"
+  ],
+  "errors": [
+    "~/.codeium/windsurf/mcp_config.json: invalid JSON: expected `,` or `}` at line 1 column 46"
+  ]
+}

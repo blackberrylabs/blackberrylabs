@@ -1,0 +1,1653 @@
+{
+  "schema": "bbl-report/1",
+  "module": {
+    "id": "permitt",
+    "name": "Permitt",
+    "version": "0.1.0",
+    "verb": "inspect",
+    "tagline": "What your AI agents may do on this machine without asking",
+    "app": "permitt-app",
+    "cli": "permitt",
+    "home": "https://github.com/blackberrylabs/permitt"
+  },
+  "generated_at": "2026-10-16T20:50:21Z",
+  "duration_ms": 10,
+  "summary": [
+    {
+      "key": "hosts",
+      "label": "Hosts installed",
+      "value": "16",
+      "tone": "neutral"
+    },
+    {
+      "key": "auto",
+      "label": "Run without asking",
+      "value": "24",
+      "tone": "alert"
+    },
+    {
+      "key": "findings",
+      "label": "Findings",
+      "value": "37",
+      "tone": "alert"
+    },
+    {
+      "key": "shell",
+      "label": "Bypass flags in shell files",
+      "value": "0",
+      "tone": "good"
+    }
+  ],
+  "findings": [
+    {
+      "id": "runs-without-asking/aider/files",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Aider edits files without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Aider"
+      },
+      "detail": "`yes-always` = true (~/.aider.conf.yml:1)",
+      "evidence": [
+        {
+          "label": "~/.aider.conf.yml:1 — yes-always = true",
+          "path": "/home/me/.aider.conf.yml",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Remove `yes-always` from .aider.conf.yml, or run without --yes-always"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.aider.conf.yml",
+          "target": "/home/me/.aider.conf.yml"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://aider.chat/docs/config/options.html"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "aider:files"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/aider/commands",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Aider runs shell commands without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Aider"
+      },
+      "detail": "`auto-test` = true (~/.aider.conf.yml:2)",
+      "evidence": [
+        {
+          "label": "~/.aider.conf.yml:2 — auto-test = true",
+          "path": "/home/me/.aider.conf.yml",
+          "line": 2
+        },
+        {
+          "label": "~/.aider.conf.yml:1 — yes-always = true",
+          "path": "/home/me/.aider.conf.yml",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Remove `yes-always` from .aider.conf.yml, or run without --yes-always"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.aider.conf.yml",
+          "target": "/home/me/.aider.conf.yml"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://aider.chat/docs/config/options.html"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "aider:commands"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/amp/mcp",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Amp calls MCP tools without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Amp"
+      },
+      "detail": "`amp.dangerouslyAllowAll` = true (~/.config/amp/settings.json:2)",
+      "evidence": [
+        {
+          "label": "~/.config/amp/settings.json:2 — amp.dangerouslyAllowAll = true",
+          "path": "/home/me/.config/amp/settings.json",
+          "line": 2
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Add rules to `amp.permissions` in ~/.config/amp/settings.json; remove `amp.dangerouslyAllowAll`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/amp/settings.json",
+          "target": "/home/me/.config/amp/settings.json"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "amp:mcp"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/amp/files",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Amp edits files without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Amp"
+      },
+      "detail": "`amp.dangerouslyAllowAll` = true (~/.config/amp/settings.json:2)",
+      "evidence": [
+        {
+          "label": "~/.config/amp/settings.json:2 — amp.dangerouslyAllowAll = true",
+          "path": "/home/me/.config/amp/settings.json",
+          "line": 2
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Add rules to `amp.permissions` in ~/.config/amp/settings.json; remove `amp.dangerouslyAllowAll`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/amp/settings.json",
+          "target": "/home/me/.config/amp/settings.json"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "amp:files"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/amp/network",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Amp reaches the network without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Amp"
+      },
+      "detail": "`amp.dangerouslyAllowAll` = true (~/.config/amp/settings.json:2)",
+      "evidence": [
+        {
+          "label": "~/.config/amp/settings.json:2 — amp.dangerouslyAllowAll = true",
+          "path": "/home/me/.config/amp/settings.json",
+          "line": 2
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Add rules to `amp.permissions` in ~/.config/amp/settings.json; remove `amp.dangerouslyAllowAll`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/amp/settings.json",
+          "target": "/home/me/.config/amp/settings.json"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "amp:network"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/claude-code/files/~/proj",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Claude Code edits files without asking in ~/proj",
+      "subject": {
+        "kind": "host",
+        "label": "Claude Code in ~/proj"
+      },
+      "detail": "`permissions.defaultMode` = acceptEdits (~/proj/.claude/settings.local.json:3)",
+      "evidence": [
+        {
+          "label": "~/proj/.claude/settings.local.json:3 — permissions.defaultMode = acceptEdits",
+          "path": "/home/me/proj/.claude/settings.local.json",
+          "line": 3
+        },
+        {
+          "label": "~/proj/.claude/settings.local.json:4 — permissions.allow = allow 1: Edit",
+          "path": "/home/me/proj/.claude/settings.local.json",
+          "line": 4
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `permissions.defaultMode` or add `permissions.allow/ask/deny` rules in ~/.claude/settings.json (user) or .claude/settings.json (project)"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/proj/.claude/settings.local.json",
+          "target": "/home/me/proj/.claude/settings.local.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://code.claude.com/docs/en/permission-modes"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "claude-code:files"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/cline/mcp",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Cline calls MCP tools without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Cline"
+      },
+      "detail": "`autoApprovalSettings.actions.useMcp` = true (~/.cline/data/globalState.json:10)",
+      "evidence": [
+        {
+          "label": "~/.cline/data/globalState.json:10 — autoApprovalSettings.actions.useMcp = true",
+          "path": "/home/me/.cline/data/globalState.json",
+          "line": 10
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Cline settings › Auto-approve (stored in ~/.cline/data/globalState.json)"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.cline/data/globalState.json",
+          "target": "/home/me/.cline/data/globalState.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://github.com/cline/cline/blob/01b8a9724da905423e636396d7fb4acdf47796bb/apps/vscode/src/sdk/sdk-tool-policies.ts"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "cline:mcp"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/cline/files",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Cline edits files without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Cline"
+      },
+      "detail": "`autoApprovalSettings.actions.editFiles` = true (~/.cline/data/globalState.json:7)",
+      "evidence": [
+        {
+          "label": "~/.cline/data/globalState.json:7 — autoApprovalSettings.actions.editFiles = true",
+          "path": "/home/me/.cline/data/globalState.json",
+          "line": 7
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Cline settings › Auto-approve (stored in ~/.cline/data/globalState.json)"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.cline/data/globalState.json",
+          "target": "/home/me/.cline/data/globalState.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://github.com/cline/cline/blob/01b8a9724da905423e636396d7fb4acdf47796bb/apps/vscode/src/sdk/sdk-tool-policies.ts"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "cline:files"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/cline/commands",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Cline runs shell commands without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Cline"
+      },
+      "detail": "`autoApprovalSettings.actions.executeSafeCommands` = true (~/.cline/data/globalState.json:8)",
+      "evidence": [
+        {
+          "label": "~/.cline/data/globalState.json:8 — autoApprovalSettings.actions.executeSafeCommands = true",
+          "path": "/home/me/.cline/data/globalState.json",
+          "line": 8
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Cline settings › Auto-approve (stored in ~/.cline/data/globalState.json)"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.cline/data/globalState.json",
+          "target": "/home/me/.cline/data/globalState.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://github.com/cline/cline/blob/01b8a9724da905423e636396d7fb4acdf47796bb/apps/vscode/src/sdk/sdk-tool-policies.ts"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "cline:commands"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/codex/mcp",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Codex CLI calls MCP tools without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Codex CLI"
+      },
+      "detail": "`mcp_servers.github.default_tools_approval_mode` = auto (~/.codex/config.toml:7)",
+      "evidence": [
+        {
+          "label": "~/.codex/config.toml:7 — mcp_servers.github.default_tools_approval_mode = auto",
+          "path": "/home/me/.codex/config.toml",
+          "line": 7
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `sandbox_mode` and `approval_policy` in ~/.codex/config.toml, or run `codex --sandbox <mode> --ask-for-approval <policy>`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.codex/config.toml",
+          "target": "/home/me/.codex/config.toml"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://learn.chatgpt.com/docs/config-file/config-reference"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "codex:mcp"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/codex/files",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Codex CLI edits files without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Codex CLI"
+      },
+      "detail": "`sandbox_mode` = danger-full-access (~/.codex/config.toml:2)",
+      "evidence": [
+        {
+          "label": "~/.codex/config.toml:2 — sandbox_mode = danger-full-access",
+          "path": "/home/me/.codex/config.toml",
+          "line": 2
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `sandbox_mode` and `approval_policy` in ~/.codex/config.toml, or run `codex --sandbox <mode> --ask-for-approval <policy>`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.codex/config.toml",
+          "target": "/home/me/.codex/config.toml"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://learn.chatgpt.com/docs/config-file/config-reference"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "codex:files"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/codex/network",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Codex CLI reaches the network without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Codex CLI"
+      },
+      "detail": "`sandbox_mode` = danger-full-access (~/.codex/config.toml:2)",
+      "evidence": [
+        {
+          "label": "~/.codex/config.toml:2 — sandbox_mode = danger-full-access",
+          "path": "/home/me/.codex/config.toml",
+          "line": 2
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `sandbox_mode` and `approval_policy` in ~/.codex/config.toml, or run `codex --sandbox <mode> --ask-for-approval <policy>`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.codex/config.toml",
+          "target": "/home/me/.codex/config.toml"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://learn.chatgpt.com/docs/config-file/config-reference"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "codex:network"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/codex/commands",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Codex CLI runs shell commands without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Codex CLI"
+      },
+      "detail": "`sandbox_mode` = danger-full-access (~/.codex/config.toml:2)",
+      "evidence": [
+        {
+          "label": "~/.codex/config.toml:2 — sandbox_mode = danger-full-access",
+          "path": "/home/me/.codex/config.toml",
+          "line": 2
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `sandbox_mode` and `approval_policy` in ~/.codex/config.toml, or run `codex --sandbox <mode> --ask-for-approval <policy>`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.codex/config.toml",
+          "target": "/home/me/.codex/config.toml"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://learn.chatgpt.com/docs/config-file/config-reference"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "codex:commands"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/cursor/files",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Cursor edits files without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Cursor"
+      },
+      "detail": "by default, nothing changed it",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Settings › Agents › Approvals & Execution (Run Mode, protections); allowlists can also go in ~/.cursor/permissions.json"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "cursor:files"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/gemini-cli/files",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Gemini CLI edits files without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Gemini CLI"
+      },
+      "detail": "`general.defaultApprovalMode` = auto_edit (~/.gemini/settings.json:3)",
+      "evidence": [
+        {
+          "label": "~/.gemini/settings.json:3 — general.defaultApprovalMode = auto_edit",
+          "path": "/home/me/.gemini/settings.json",
+          "line": 3
+        },
+        {
+          "label": "~/.gemini/settings.json:6 — tools.allowed = allow 1: write_file",
+          "path": "/home/me/.gemini/settings.json",
+          "line": 6
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `general.defaultApprovalMode`, `tools.allowed` or `tools.confirmationRequired` in ~/.gemini/settings.json; `security.disableYoloMode` locks YOLO out"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.gemini/settings.json",
+          "target": "/home/me/.gemini/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://geminicli.com/docs/reference/configuration/"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "gemini-cli:files"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/copilot-cli/files/~/proj",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "GitHub Copilot CLI edits files without asking in ~/proj",
+      "subject": {
+        "kind": "host",
+        "label": "GitHub Copilot CLI in ~/proj"
+      },
+      "detail": "`tool_approvals` = allow 1 rule(s) (~/.copilot/permissions-config.json:4)",
+      "evidence": [
+        {
+          "label": "~/.copilot/permissions-config.json:4 — tool_approvals = allow 1 rule(s)",
+          "path": "/home/me/.copilot/permissions-config.json",
+          "line": 4
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Use /permissions in a session; saved approvals live in ~/.copilot/permissions-config.json; set `permissions.disableBypassPermissionsMode` in ~/.copilot/settings.json to lock out allow-all"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.copilot/permissions-config.json",
+          "target": "/home/me/.copilot/permissions-config.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-config-dir-reference"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "copilot-cli:files"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/goose/network",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Goose reaches the network without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Goose"
+      },
+      "detail": "`GOOSE_MODE` = approve (~/.config/goose/config.yaml:1)",
+      "evidence": [
+        {
+          "label": "~/.config/goose/config.yaml:1 — GOOSE_MODE = approve",
+          "path": "/home/me/.config/goose/config.yaml",
+          "line": 1
+        },
+        {
+          "label": "~/.config/goose/permission.yaml:2 — user.always_allow = allow 1: fetch__fetch",
+          "path": "/home/me/.config/goose/permission.yaml",
+          "line": 2
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `GOOSE_MODE: approve` (or smart_approve) in ~/.config/goose/config.yaml, or run `goose configure` › Tool Permission"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/goose/config.yaml",
+          "target": "/home/me/.config/goose/config.yaml"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/goose/permission.yaml",
+          "target": "/home/me/.config/goose/permission.yaml"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://block.github.io/goose/docs/guides/goose-permissions/"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "goose:network"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/goose/commands",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Goose runs shell commands without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Goose"
+      },
+      "detail": "`GOOSE_MODE` = approve (~/.config/goose/config.yaml:1)",
+      "evidence": [
+        {
+          "label": "~/.config/goose/config.yaml:1 — GOOSE_MODE = approve",
+          "path": "/home/me/.config/goose/config.yaml",
+          "line": 1
+        },
+        {
+          "label": "~/.config/goose/permission.yaml:2 — user.always_allow = allow 1: developer__shell",
+          "path": "/home/me/.config/goose/permission.yaml",
+          "line": 2
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `GOOSE_MODE: approve` (or smart_approve) in ~/.config/goose/config.yaml, or run `goose configure` › Tool Permission"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/goose/config.yaml",
+          "target": "/home/me/.config/goose/config.yaml"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/goose/permission.yaml",
+          "target": "/home/me/.config/goose/permission.yaml"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://block.github.io/goose/docs/guides/goose-permissions/"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "goose:commands"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/kiro/mcp",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Kiro calls MCP tools without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Kiro"
+      },
+      "detail": "`rules` = allow 1 rule(s) (~/.kiro/settings/permissions.yaml:1)",
+      "evidence": [
+        {
+          "label": "~/.kiro/settings/permissions.yaml:1 — rules = allow 1 rule(s)",
+          "path": "/home/me/.kiro/settings/permissions.yaml",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Add rules in ~/.kiro/settings/permissions.yaml (deny > ask > allow, the most restrictive wins)"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.kiro/settings/permissions.yaml",
+          "target": "/home/me/.kiro/settings/permissions.yaml"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://kiro.dev/docs/permissions/"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "kiro:mcp"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/kiro/files",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Kiro edits files without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Kiro"
+      },
+      "detail": "`rules` = allow 1 rule(s) (~/.kiro/settings/permissions.yaml:1)",
+      "evidence": [
+        {
+          "label": "~/.kiro/settings/permissions.yaml:1 — rules = allow 1 rule(s)",
+          "path": "/home/me/.kiro/settings/permissions.yaml",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Add rules in ~/.kiro/settings/permissions.yaml (deny > ask > allow, the most restrictive wins)"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.kiro/settings/permissions.yaml",
+          "target": "/home/me/.kiro/settings/permissions.yaml"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://kiro.dev/docs/permissions/"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "kiro:files"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/opencode/network",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "OpenCode reaches the network without asking",
+      "subject": {
+        "kind": "host",
+        "label": "OpenCode"
+      },
+      "detail": "`permission.webfetch` = allow (~/.config/opencode/opencode.json:10)",
+      "evidence": [
+        {
+          "label": "~/.config/opencode/opencode.json:10 — permission.webfetch = allow",
+          "path": "/home/me/.config/opencode/opencode.json",
+          "line": 10
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Add a `permission` block in ~/.config/opencode/opencode.json, e.g. \"bash\": { \"*\": \"ask\" }, \"edit\": \"ask\", \"webfetch\": \"ask\""
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/opencode/opencode.json",
+          "target": "/home/me/.config/opencode/opencode.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://opencode.ai/docs/permissions/"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "opencode:network"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/qwen-code/mcp",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Qwen Code calls MCP tools without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Qwen Code"
+      },
+      "detail": "`tools.approvalMode` = yolo (~/.qwen/settings.json:3)",
+      "evidence": [
+        {
+          "label": "~/.qwen/settings.json:3 — tools.approvalMode = yolo",
+          "path": "/home/me/.qwen/settings.json",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `tools.approvalMode` or `permissions.allow/ask/deny` in ~/.qwen/settings.json, or run /approval-mode <mode> --user"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.qwen/settings.json",
+          "target": "/home/me/.qwen/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://qwenlm.github.io/qwen-code-docs/en/users/configuration/settings/"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "qwen-code:mcp"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/qwen-code/files",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Qwen Code edits files without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Qwen Code"
+      },
+      "detail": "`tools.approvalMode` = yolo (~/.qwen/settings.json:3)",
+      "evidence": [
+        {
+          "label": "~/.qwen/settings.json:3 — tools.approvalMode = yolo",
+          "path": "/home/me/.qwen/settings.json",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `tools.approvalMode` or `permissions.allow/ask/deny` in ~/.qwen/settings.json, or run /approval-mode <mode> --user"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.qwen/settings.json",
+          "target": "/home/me/.qwen/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://qwenlm.github.io/qwen-code-docs/en/users/configuration/settings/"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "qwen-code:files"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/qwen-code/network",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Qwen Code reaches the network without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Qwen Code"
+      },
+      "detail": "`tools.approvalMode` = yolo (~/.qwen/settings.json:3)",
+      "evidence": [
+        {
+          "label": "~/.qwen/settings.json:3 — tools.approvalMode = yolo",
+          "path": "/home/me/.qwen/settings.json",
+          "line": 3
+        },
+        {
+          "label": "~/.qwen/settings.json:9 — permissions.allow = allow 1: WebFetch(api.example.com)",
+          "path": "/home/me/.qwen/settings.json",
+          "line": 9
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `tools.approvalMode` or `permissions.allow/ask/deny` in ~/.qwen/settings.json, or run /approval-mode <mode> --user"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.qwen/settings.json",
+          "target": "/home/me/.qwen/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://qwenlm.github.io/qwen-code-docs/en/users/configuration/settings/"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "qwen-code:network"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/vscode/mcp/~/proj",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Visual Studio Code (Copilot) calls MCP tools without asking in ~/proj",
+      "subject": {
+        "kind": "host",
+        "label": "Visual Studio Code (Copilot) in ~/proj"
+      },
+      "detail": "`chat.tools.global.autoApprove` = true (~/proj/.vscode/settings.json:2)",
+      "evidence": [
+        {
+          "label": "~/proj/.vscode/settings.json:2 — chat.tools.global.autoApprove = true",
+          "path": "/home/me/proj/.vscode/settings.json",
+          "line": 2
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `chat.tools.terminal.autoApprove`, `chat.tools.edits.autoApprove`, `chat.tools.urls.autoApprove` or `chat.permissions.default` in settings.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/proj/.vscode/settings.json",
+          "target": "/home/me/proj/.vscode/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://code.visualstudio.com/docs/copilot/reference/copilot-settings"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "vscode:mcp"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/vscode/network/~/proj",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Visual Studio Code (Copilot) reaches the network without asking in ~/proj",
+      "subject": {
+        "kind": "host",
+        "label": "Visual Studio Code (Copilot) in ~/proj"
+      },
+      "detail": "`chat.tools.global.autoApprove` = true (~/proj/.vscode/settings.json:2)",
+      "evidence": [
+        {
+          "label": "~/.config/Code/User/settings.json:3 — chat.tools.urls.autoApprove = https://docs.rs/*=allow",
+          "path": "/home/me/.config/Code/User/settings.json",
+          "line": 3
+        },
+        {
+          "label": "~/proj/.vscode/settings.json:2 — chat.tools.global.autoApprove = true",
+          "path": "/home/me/proj/.vscode/settings.json",
+          "line": 2
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `chat.tools.terminal.autoApprove`, `chat.tools.edits.autoApprove`, `chat.tools.urls.autoApprove` or `chat.permissions.default` in settings.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/Code/User/settings.json",
+          "target": "/home/me/.config/Code/User/settings.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/proj/.vscode/settings.json",
+          "target": "/home/me/proj/.vscode/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://code.visualstudio.com/docs/agents/run/approvals"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "vscode:network"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/zed/mcp",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Zed calls MCP tools without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Zed"
+      },
+      "detail": "`agent.tool_permissions.default` = allow (~/.config/zed/settings.json:5)",
+      "evidence": [
+        {
+          "label": "~/.config/zed/settings.json:5 — agent.tool_permissions.default = allow",
+          "path": "/home/me/.config/zed/settings.json",
+          "line": 5
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `agent.tool_permissions.default` or per-tool rules in ~/.config/zed/settings.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/zed/settings.json",
+          "target": "/home/me/.config/zed/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://zed.dev/docs/ai/tool-permissions"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "zed:mcp"
+        ]
+      }
+    },
+    {
+      "id": "runs-without-asking/zed/files",
+      "severity": 2,
+      "kind": "runs-without-asking",
+      "title": "Zed edits files without asking",
+      "subject": {
+        "kind": "host",
+        "label": "Zed"
+      },
+      "detail": "`agent.tool_permissions.default` = allow (~/.config/zed/settings.json:5)",
+      "evidence": [
+        {
+          "label": "~/.config/zed/settings.json:5 — agent.tool_permissions.default = allow",
+          "path": "/home/me/.config/zed/settings.json",
+          "line": 5
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `agent.tool_permissions.default` or per-tool rules in ~/.config/zed/settings.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/zed/settings.json",
+          "target": "/home/me/.config/zed/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://zed.dev/docs/ai/tool-permissions"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "zed:files"
+        ]
+      }
+    },
+    {
+      "id": "denylist-only/amp/commands",
+      "severity": 3,
+      "kind": "denylist-only",
+      "title": "Amp runs shell commands unless a deny list matches",
+      "subject": {
+        "kind": "host",
+        "label": "Amp"
+      },
+      "detail": "`amp.dangerouslyAllowAll` = true (~/.config/amp/settings.json:2)",
+      "evidence": [
+        {
+          "label": "~/.config/amp/settings.json:2 — amp.dangerouslyAllowAll = true",
+          "path": "/home/me/.config/amp/settings.json",
+          "line": 2
+        },
+        {
+          "label": "~/.config/amp/settings.json:3 — amp.permissions = ask 1 rule(s)",
+          "path": "/home/me/.config/amp/settings.json",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Add rules to `amp.permissions` in ~/.config/amp/settings.json; remove `amp.dangerouslyAllowAll`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/amp/settings.json",
+          "target": "/home/me/.config/amp/settings.json"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "amp:commands"
+        ]
+      }
+    },
+    {
+      "id": "denylist-only/qwen-code/commands",
+      "severity": 3,
+      "kind": "denylist-only",
+      "title": "Qwen Code runs shell commands unless a deny list matches",
+      "subject": {
+        "kind": "host",
+        "label": "Qwen Code"
+      },
+      "detail": "`tools.approvalMode` = yolo (~/.qwen/settings.json:3)",
+      "evidence": [
+        {
+          "label": "~/.qwen/settings.json:3 — tools.approvalMode = yolo",
+          "path": "/home/me/.qwen/settings.json",
+          "line": 3
+        },
+        {
+          "label": "~/.qwen/settings.json:6 — permissions.deny = deny 1: Bash(rm *)",
+          "path": "/home/me/.qwen/settings.json",
+          "line": 6
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `tools.approvalMode` or `permissions.allow/ask/deny` in ~/.qwen/settings.json, or run /approval-mode <mode> --user"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.qwen/settings.json",
+          "target": "/home/me/.qwen/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://qwenlm.github.io/qwen-code-docs/en/users/configuration/settings/"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "qwen-code:commands"
+        ]
+      }
+    },
+    {
+      "id": "denylist-only/vscode/files",
+      "severity": 3,
+      "kind": "denylist-only",
+      "title": "Visual Studio Code (Copilot) edits files unless a deny list matches",
+      "subject": {
+        "kind": "host",
+        "label": "Visual Studio Code (Copilot)"
+      },
+      "detail": "`chat.tools.edits.autoApprove.*` = allow (~/.config/Code/User/settings.json:4)",
+      "evidence": [
+        {
+          "label": "~/.config/Code/User/settings.json:4 — chat.tools.edits.autoApprove.* = allow",
+          "path": "/home/me/.config/Code/User/settings.json",
+          "line": 4
+        },
+        {
+          "label": "~/.config/Code/User/settings.json:3 — chat.tools.edits.autoApprove = **/.env=ask",
+          "path": "/home/me/.config/Code/User/settings.json",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `chat.tools.terminal.autoApprove`, `chat.tools.edits.autoApprove`, `chat.tools.urls.autoApprove` or `chat.permissions.default` in settings.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/Code/User/settings.json",
+          "target": "/home/me/.config/Code/User/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://code.visualstudio.com/docs/copilot/reference/copilot-settings"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "vscode:files"
+        ]
+      }
+    },
+    {
+      "id": "denylist-only/vscode/commands/~/proj",
+      "severity": 3,
+      "kind": "denylist-only",
+      "title": "Visual Studio Code (Copilot) runs shell commands unless a deny list matches in ~/proj",
+      "subject": {
+        "kind": "host",
+        "label": "Visual Studio Code (Copilot) in ~/proj"
+      },
+      "detail": "`chat.tools.global.autoApprove` = true (~/proj/.vscode/settings.json:2)",
+      "evidence": [
+        {
+          "label": "~/.config/Code/User/settings.json:3 — chat.tools.terminal.autoApprove = /^npm/=allow, git=allow, rm=ask",
+          "path": "/home/me/.config/Code/User/settings.json",
+          "line": 3
+        },
+        {
+          "label": "~/proj/.vscode/settings.json:2 — chat.tools.global.autoApprove = true",
+          "path": "/home/me/proj/.vscode/settings.json",
+          "line": 2
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `chat.tools.terminal.autoApprove`, `chat.tools.edits.autoApprove`, `chat.tools.urls.autoApprove` or `chat.permissions.default` in settings.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.config/Code/User/settings.json",
+          "target": "/home/me/.config/Code/User/settings.json"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/proj/.vscode/settings.json",
+          "target": "/home/me/proj/.vscode/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://code.visualstudio.com/docs/agents/run/approvals"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "vscode:commands"
+        ]
+      }
+    },
+    {
+      "id": "judged-by-model/claude-code/mcp",
+      "severity": 2,
+      "kind": "judged-by-model",
+      "title": "Claude Code calls MCP tools when a model allows it",
+      "subject": {
+        "kind": "host",
+        "label": "Claude Code"
+      },
+      "detail": "by default, nothing changed it",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `permissions.defaultMode` or add `permissions.allow/ask/deny` rules in ~/.claude/settings.json (user) or .claude/settings.json (project)"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "claude-code:mcp"
+        ]
+      }
+    },
+    {
+      "id": "judged-by-model/claude-code/files",
+      "severity": 2,
+      "kind": "judged-by-model",
+      "title": "Claude Code edits files when a model allows it",
+      "subject": {
+        "kind": "host",
+        "label": "Claude Code"
+      },
+      "detail": "by default, nothing changed it",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `permissions.defaultMode` or add `permissions.allow/ask/deny` rules in ~/.claude/settings.json (user) or .claude/settings.json (project)"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "claude-code:files"
+        ]
+      }
+    },
+    {
+      "id": "judged-by-model/claude-code/network",
+      "severity": 2,
+      "kind": "judged-by-model",
+      "title": "Claude Code reaches the network when a model allows it",
+      "subject": {
+        "kind": "host",
+        "label": "Claude Code"
+      },
+      "detail": "`permissions.allow` = allow 1: WebFetch(domain:docs.rs) (~/.claude/settings.json:3)",
+      "evidence": [
+        {
+          "label": "~/.claude/settings.json:3 — permissions.allow = allow 1: WebFetch(domain:docs.rs)",
+          "path": "/home/me/.claude/settings.json",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `permissions.defaultMode` or add `permissions.allow/ask/deny` rules in ~/.claude/settings.json (user) or .claude/settings.json (project)"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.claude/settings.json",
+          "target": "/home/me/.claude/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://code.claude.com/docs/en/permissions"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "claude-code:network"
+        ]
+      }
+    },
+    {
+      "id": "judged-by-model/claude-code/commands",
+      "severity": 2,
+      "kind": "judged-by-model",
+      "title": "Claude Code runs shell commands when a model allows it",
+      "subject": {
+        "kind": "host",
+        "label": "Claude Code"
+      },
+      "detail": "`permissions.allow` = allow 2: Bash(git *), Bash(npm test) (~/.claude/settings.json:3)",
+      "evidence": [
+        {
+          "label": "~/.claude/settings.json:3 — permissions.allow = allow 2: Bash(git *), Bash(npm test)",
+          "path": "/home/me/.claude/settings.json",
+          "line": 3
+        },
+        {
+          "label": "~/.claude/settings.json:9 — permissions.deny = deny 1: Bash(rm -rf *)",
+          "path": "/home/me/.claude/settings.json",
+          "line": 9
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `permissions.defaultMode` or add `permissions.allow/ask/deny` rules in ~/.claude/settings.json (user) or .claude/settings.json (project)"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/.claude/settings.json",
+          "target": "/home/me/.claude/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://code.claude.com/docs/en/permissions"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "claude-code:commands"
+        ]
+      }
+    },
+    {
+      "id": "not-honoured/claude-code/commands/~/proj",
+      "severity": 3,
+      "kind": "not-honoured",
+      "title": "`permissions.defaultMode` = bypassPermissions in ~/proj/.claude/settings.json is ignored by Claude Code at the project level",
+      "subject": {
+        "kind": "host",
+        "label": "Claude Code in ~/proj"
+      },
+      "detail": "",
+      "evidence": [
+        {
+          "label": "~/proj/.claude/settings.json:3 — permissions.defaultMode = bypassPermissions",
+          "path": "/home/me/proj/.claude/settings.json",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `permissions.defaultMode` or add `permissions.allow/ask/deny` rules in ~/.claude/settings.json (user) or .claude/settings.json (project)"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open ~/proj/.claude/settings.json",
+          "target": "/home/me/proj/.claude/settings.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Documentation",
+          "target": "https://code.claude.com/docs/en/permission-modes"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "claude-code:commands"
+        ]
+      }
+    },
+    {
+      "id": "unknown/cursor",
+      "severity": 4,
+      "kind": "unknown",
+      "title": "Cursor: commands, network, mcp cannot be read",
+      "subject": {
+        "kind": "host",
+        "label": "Cursor"
+      },
+      "detail": "the Run Mode (Auto-review / Allowlist / Run Everything), the protections and the in-app allowlists are stored in Cursor's state database (state.vscdb, keys yoloEnableRunEverything, yoloCommandAllowlist, yoloCommandDenylist, sandboxPolicy…), not read in 0.1; check Settings › Agents › Approvals & Execution",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Settings › Agents › Approvals & Execution (Run Mode, protections); allowlists can also go in ~/.cursor/permissions.json"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "cursor:commands"
+        ]
+      }
+    },
+    {
+      "id": "unknown/vscode",
+      "severity": 4,
+      "kind": "unknown",
+      "title": "Visual Studio Code (Copilot): mcp cannot be read",
+      "subject": {
+        "kind": "host",
+        "label": "Visual Studio Code (Copilot)"
+      },
+      "detail": "per-tool and per-MCP-server \"Allow in session / workspace / always\" choices live in editor state, not in a documented file (cleared with Chat: Reset Tool Confirmations)",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `chat.tools.terminal.autoApprove`, `chat.tools.edits.autoApprove`, `chat.tools.urls.autoApprove` or `chat.permissions.default` in settings.json"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "vscode:mcp"
+        ]
+      }
+    },
+    {
+      "id": "unknown/cursor-cli",
+      "severity": 4,
+      "kind": "unknown",
+      "title": "Cursor CLI: files cannot be read",
+      "subject": {
+        "kind": "host",
+        "label": "Cursor CLI"
+      },
+      "detail": "",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Add `permissions.allow/deny` rules in ~/.cursor/cli-config.json or <project>/.cursor/cli.json"
+        }
+      ],
+      "open": {
+        "app": "permitt-app",
+        "args": [
+          "--select",
+          "cursor-cli:files"
+        ]
+      }
+    }
+  ],
+  "notes": [
+    "0 shell file(s) read",
+    "1 project root(s) looked at",
+    "7 host(s) known and not read in this version"
+  ],
+  "errors": []
+}

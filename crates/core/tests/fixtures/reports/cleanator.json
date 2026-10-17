@@ -1,0 +1,921 @@
+{
+  "schema": "bbl-report/1",
+  "module": {
+    "id": "cleanator",
+    "name": "Cleanator",
+    "version": "0.1.1",
+    "verb": "clean",
+    "tagline": "Disk cleaner for developers who run AI on Linux — never deletes anything",
+    "app": "cleanator",
+    "cli": "cleanator-cli",
+    "home": "https://github.com/blackberrylabs/cleanator"
+  },
+  "generated_at": "2026-10-17T06:19:37Z",
+  "duration_ms": 380,
+  "summary": [
+    {
+      "key": "scanned",
+      "label": "Scanned",
+      "value": "3.3G",
+      "tone": "neutral"
+    },
+    {
+      "key": "safe",
+      "label": "Safe to free",
+      "value": "1.9G",
+      "tone": "good"
+    },
+    {
+      "key": "review",
+      "label": "To review",
+      "value": "987M",
+      "tone": "amber"
+    },
+    {
+      "key": "in_use",
+      "label": "In use",
+      "value": "0B",
+      "tone": "neutral"
+    }
+  ],
+  "findings": [
+    {
+      "id": "safe/playwright-browsers",
+      "severity": 3,
+      "kind": "safe",
+      "title": "Playwright browsers: 924M safe to free",
+      "subject": {
+        "kind": "path",
+        "label": "tooling · Playwright browsers"
+      },
+      "detail": "Chromium, Firefox and WebKit builds downloaded by Playwright (and by MCP servers that drive a browser). — `npx playwright install` downloads them again. — minutes, several hundred MB of network",
+      "evidence": [
+        {
+          "label": "/opt/pw-browsers — 924M",
+          "path": "/opt/pw-browsers"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "npx playwright uninstall --all"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /opt/pw-browsers",
+          "target": "/opt/pw-browsers"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://playwright.dev/docs/browsers"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "playwright-browsers"
+        ]
+      }
+    },
+    {
+      "id": "safe/uv-cache",
+      "severity": 3,
+      "kind": "safe",
+      "title": "uv cache: 495M safe to free",
+      "subject": {
+        "kind": "path",
+        "label": "package-cache · uv cache"
+      },
+      "detail": "uv stores downloaded and built packages here and links them into virtual environments on the same filesystem. — uv re-downloads or rebuilds on the next sync; the directory and its lock file are kept so other uv processes stay safe. — seconds to minutes per project, network",
+      "evidence": [
+        {
+          "label": "/root/.cache/uv — 495M",
+          "path": "/root/.cache/uv"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "uv cache clean"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /root/.cache/uv",
+          "target": "/root/.cache/uv"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://docs.astral.sh/uv/concepts/cache/"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "uv-cache"
+        ]
+      }
+    },
+    {
+      "id": "safe/cargo-registry",
+      "severity": 3,
+      "kind": "safe",
+      "title": "Cargo registry cache: 440M safe to free",
+      "subject": {
+        "kind": "path",
+        "label": "package-cache · Cargo registry cache"
+      },
+      "detail": "Downloaded .crate archives (registry/cache), their unpacked sources (registry/src) and the registry index. — Cargo re-downloads, re-extracts or re-fetches what a build needs. — seconds to minutes per project, network",
+      "evidence": [
+        {
+          "label": "/root/.cargo/registry — 440M",
+          "path": "/root/.cargo/registry"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "rm -rf -- '/root/.cargo/registry'"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /root/.cargo/registry",
+          "target": "/root/.cargo/registry"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://doc.rust-lang.org/cargo/guide/cargo-home.html"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "cargo-registry"
+        ]
+      }
+    },
+    {
+      "id": "safe/node-modules",
+      "severity": 3,
+      "kind": "safe",
+      "title": "node_modules: 60M safe to free",
+      "subject": {
+        "kind": "path",
+        "label": "build · node_modules"
+      },
+      "detail": "Installed JavaScript dependencies of one project, fully described by package.json and its lock file. — `npm install` / `pnpm install` / `yarn` / `bun install` in the project. — seconds to minutes, network (less with the package cache kept)",
+      "evidence": [
+        {
+          "label": "/home/me/proj_dormant/node_modules — 60M",
+          "path": "/home/me/proj_dormant/node_modules"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "rm -rf -- '/home/me/proj_dormant/node_modules'"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /home/me/proj_dormant/node_modules",
+          "target": "/home/me/proj_dormant/node_modules"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://docs.npmjs.com/cli/v10/commands/npm-cache"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "node-modules"
+        ]
+      }
+    },
+    {
+      "id": "safe/npm-cache",
+      "severity": 3,
+      "kind": "safe",
+      "title": "npm cache: 29M safe to free",
+      "subject": {
+        "kind": "path",
+        "label": "package-cache · npm cache"
+      },
+      "detail": "npm keeps every downloaded package tarball and metadata in an opaque, self-healing content store. — npm re-fetches packages on the next install. — seconds to minutes per project, network",
+      "evidence": [
+        {
+          "label": "/root/.npm/_cacache — 29M",
+          "path": "/root/.npm/_cacache"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "npm cache clean --force"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /root/.npm/_cacache",
+          "target": "/root/.npm/_cacache"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://docs.npmjs.com/cli/v10/commands/npm-cache"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "npm-cache"
+        ]
+      }
+    },
+    {
+      "id": "safe/web-build-outputs",
+      "severity": 3,
+      "kind": "safe",
+      "title": "Web build outputs (.next, dist, .turbo, .open-next, .nuxt, .svelte-kit, .parcel-cache, .astro): 8M safe to free",
+      "subject": {
+        "kind": "path",
+        "label": "build · Web build outputs (.next, dist, .turbo, .open-next, .nuxt, .svelte-kit, .parcel-cache, .astro)"
+      },
+      "detail": "Compiled output and framework caches of a JavaScript project, produced by `npm run build` / `dev`. — The next build recreates them. — seconds to minutes of CPU",
+      "evidence": [
+        {
+          "label": "/home/me/proj_dormant/dist — 8M",
+          "path": "/home/me/proj_dormant/dist"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "rm -rf -- '/home/me/proj_dormant/dist'"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /home/me/proj_dormant/dist",
+          "target": "/home/me/proj_dormant/dist"
+        },
+        {
+          "kind": "hint",
+          "label": "Source: project brief, inventory of 2026-10-15"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "web-build-outputs"
+        ]
+      }
+    },
+    {
+      "id": "safe/pip-cache",
+      "severity": 3,
+      "kind": "safe",
+      "title": "pip cache: 4M safe to free",
+      "subject": {
+        "kind": "path",
+        "label": "package-cache · pip cache"
+      },
+      "detail": "pip keeps two caches: HTTP responses (like a browser cache) and locally built wheels, so later installs are faster. — pip downloads and rebuilds what it needs on the next install. — seconds to minutes per install, network",
+      "evidence": [
+        {
+          "label": "/root/.cache/pip — 4M",
+          "path": "/root/.cache/pip"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "pip cache purge"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /root/.cache/pip",
+          "target": "/root/.cache/pip"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://pip.pypa.io/en/stable/topics/caching/"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "pip-cache"
+        ]
+      }
+    },
+    {
+      "id": "safe/cargo-git-db",
+      "severity": 3,
+      "kind": "safe",
+      "title": "Cargo git dependencies cache: 1M safe to free",
+      "subject": {
+        "kind": "path",
+        "label": "package-cache · Cargo git dependencies cache"
+      },
+      "detail": "Bare clones and checkouts of crates that are git dependencies. — Cargo re-clones the repository when a build needs it. — seconds to minutes, network",
+      "evidence": [
+        {
+          "label": "/root/.cargo/git — 1M",
+          "path": "/root/.cargo/git"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "rm -rf -- '/root/.cargo/git'"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /root/.cargo/git",
+          "target": "/root/.cargo/git"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://doc.rust-lang.org/cargo/guide/cargo-home.html"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "cargo-git-db"
+        ]
+      }
+    },
+    {
+      "id": "review/archives-at-home-root",
+      "severity": 3,
+      "kind": "review",
+      "title": "Archives and disk images: 600M to review",
+      "subject": {
+        "kind": "path",
+        "label": "large-file · Archives and disk images"
+      },
+      "detail": "Downloaded installers, ISO images, flasher images and archives sit where they were downloaded and are rarely needed twice. — Downloads can be fetched again; an archive you made yourself cannot. — from a download to irreplaceable",
+      "evidence": [
+        {
+          "label": "/home/me/Downloads/ubuntu.iso — 600M",
+          "path": "/home/me/Downloads/ubuntu.iso"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "gio trash -- '/home/me/Downloads/ubuntu.iso'"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /home/me/Downloads",
+          "target": "/home/me/Downloads"
+        },
+        {
+          "kind": "hint",
+          "label": "Source: project brief, inventory of 2026-10-15"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "archives-at-home-root"
+        ]
+      }
+    },
+    {
+      "id": "review/cargo-target",
+      "severity": 3,
+      "kind": "review",
+      "title": "Rust build directory (target/): 120M to review",
+      "subject": {
+        "kind": "path",
+        "label": "build · Rust build directory (target/)"
+      },
+      "detail": "Compiled artifacts of a Rust project (debug and release). Tauri projects easily reach 5 to 20 GB per target/ because every dependency is compiled locally. — The next `cargo build` recompiles everything: a full rebuild of a Tauri app takes several minutes. — minutes of CPU per rebuild; no network if the registry cache is kept",
+      "evidence": [
+        {
+          "label": "/home/me/rusty/target — 120M",
+          "path": "/home/me/rusty/target"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "cargo clean --manifest-path '/home/me/rusty'/Cargo.toml"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /home/me/rusty/target",
+          "target": "/home/me/rusty/target"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://doc.rust-lang.org/cargo/guide/cargo-home.html"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "cargo-target"
+        ]
+      }
+    },
+    {
+      "id": "review/loose-model-files",
+      "severity": 3,
+      "kind": "review",
+      "title": "Model files outside any store: 120M to review",
+      "subject": {
+        "kind": "path",
+        "label": "model · Model files outside any store"
+      },
+      "detail": "Model weights that live in a project folder, a tool's models/ directory (ComfyUI, ai-toolkit, Stable Diffusion) or a hand-made models/ folder. Cleanator cannot know whether they were downloaded or trained: it shows them by name, size and last access, grouped by their parent directory. — Downloaded files can be fetched again; a fine-tune or a merge you made yourself cannot. — from minutes of network to irreplaceable",
+      "evidence": [
+        {
+          "label": "/home/me/modeles/Qwen27B/model-00001-of-00002.safetensors — 120M",
+          "path": "/home/me/modeles/Qwen27B/model-00001-of-00002.safetensors"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "gio trash -- '/home/me/modeles/Qwen27B/model-00001-of-00002.safetensors'"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /home/me/modeles/Qwen27B",
+          "target": "/home/me/modeles/Qwen27B"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://huggingface.co/docs/safetensors/index"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "loose-model-files"
+        ]
+      }
+    },
+    {
+      "id": "review/python-venv",
+      "severity": 3,
+      "kind": "review",
+      "title": "Python virtual environment: 92M to review",
+      "subject": {
+        "kind": "path",
+        "label": "python-env · Python virtual environment"
+      },
+      "detail": "A virtual environment (any directory holding pyvenv.cfg, wherever it lives: ~/venvs/, ~/venv-*, a project's .venv) is a disposable copy of the packages a project needs. A torch + CUDA environment weighs 5 to 11 GB. — `python -m venv` / `uv sync` / `pip install -r requirements.txt` rebuilds it from the project's dependency file. — minutes, GBs of network for torch/CUDA wheels (less if the package caches are kept)",
+      "evidence": [
+        {
+          "label": "/home/me/venvs/old — 92M",
+          "path": "/home/me/venvs/old"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "gio trash -- '/home/me/venvs/old'"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /home/me/venvs/old",
+          "target": "/home/me/venvs/old"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://docs.python.org/3/library/venv.html"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "python-venv"
+        ]
+      }
+    },
+    {
+      "id": "review/node-modules",
+      "severity": 3,
+      "kind": "review",
+      "title": "node_modules: 40M to review",
+      "subject": {
+        "kind": "path",
+        "label": "build · node_modules"
+      },
+      "detail": "Installed JavaScript dependencies of one project, fully described by package.json and its lock file. — `npm install` / `pnpm install` / `yarn` / `bun install` in the project. — seconds to minutes, network (less with the package cache kept)",
+      "evidence": [
+        {
+          "label": "/home/me/proj_active/node_modules — 40M",
+          "path": "/home/me/proj_active/node_modules"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "gio trash -- '/home/me/proj_active/node_modules'"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /home/me/proj_active/node_modules",
+          "target": "/home/me/proj_active/node_modules"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://docs.npmjs.com/cli/v10/commands/npm-cache"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "node-modules"
+        ]
+      }
+    },
+    {
+      "id": "review/web-build-outputs",
+      "severity": 3,
+      "kind": "review",
+      "title": "Web build outputs (.next, dist, .turbo, .open-next, .nuxt, .svelte-kit, .parcel-cache, .astro): 15M to review",
+      "subject": {
+        "kind": "path",
+        "label": "build · Web build outputs (.next, dist, .turbo, .open-next, .nuxt, .svelte-kit, .parcel-cache, .astro)"
+      },
+      "detail": "Compiled output and framework caches of a JavaScript project, produced by `npm run build` / `dev`. — The next build recreates them. — seconds to minutes of CPU",
+      "evidence": [
+        {
+          "label": "/home/me/proj_active/.next — 15M",
+          "path": "/home/me/proj_active/.next"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Tick the items in Cleanator and write the script; nothing is removed until you run it"
+        },
+        {
+          "kind": "command",
+          "label": "The script would run",
+          "target": "gio trash -- '/home/me/proj_active/.next'"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /home/me/proj_active/.next",
+          "target": "/home/me/proj_active/.next"
+        },
+        {
+          "kind": "hint",
+          "label": "Source: project brief, inventory of 2026-10-15"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "web-build-outputs"
+        ]
+      }
+    },
+    {
+      "id": "never/large-files-unclassified",
+      "severity": 4,
+      "kind": "never",
+      "title": "Other files over 1 GB: 1.1G kept",
+      "subject": {
+        "kind": "path",
+        "label": "large-file · Other files over 1 GB"
+      },
+      "detail": "Big files no rule recognises (datasets, databases, exports, videos). Listed in the treemap and in a 'large files' view so nothing stays invisible, never in the script. — — — —",
+      "evidence": [
+        {
+          "label": "/home/me/Archives/data/big.jsonl — 1.1G",
+          "path": "/home/me/Archives/data/big.jsonl"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Shown for size only; Cleanator never proposes it"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /home/me/Archives/data",
+          "target": "/home/me/Archives/data"
+        },
+        {
+          "kind": "hint",
+          "label": "Source: project brief, R2"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "large-files-unclassified"
+        ]
+      }
+    },
+    {
+      "id": "never/system-python",
+      "severity": 4,
+      "kind": "never",
+      "title": "System Python packages: 210M kept in 4 items",
+      "subject": {
+        "kind": "path",
+        "label": "python-env · System Python packages"
+      },
+      "detail": "Packages of the distribution's Python and of `pip install --user`: removing them breaks system tools. Managed by apt and pip, not by a cleaner. — — — —",
+      "evidence": [
+        {
+          "label": "/usr/lib/python3.11 — 54M",
+          "path": "/usr/lib/python3.11"
+        },
+        {
+          "label": "/usr/lib/python3.12 — 54M",
+          "path": "/usr/lib/python3.12"
+        },
+        {
+          "label": "/usr/lib/python3.13 — 52M",
+          "path": "/usr/lib/python3.13"
+        },
+        {
+          "label": "/usr/lib/python3 — 50M",
+          "path": "/usr/lib/python3"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Shown for size only; Cleanator never proposes it"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /usr/lib/python3.11",
+          "target": "/usr/lib/python3.11"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://docs.python.org/3/library/venv.html"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "system-python"
+        ]
+      }
+    },
+    {
+      "id": "never/cargo-home-config",
+      "severity": 4,
+      "kind": "never",
+      "title": "Cargo installed tools and credentials: 35M kept",
+      "subject": {
+        "kind": "path",
+        "label": "assistant-config · Cargo installed tools and credentials"
+      },
+      "detail": "Installed binaries (`cargo install`), settings and registry login: not cache. — Not regenerable without reinstalling tools and logging in again. — —",
+      "evidence": [
+        {
+          "label": "/root/.cargo/bin — 35M",
+          "path": "/root/.cargo/bin"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Shown for size only; Cleanator never proposes it"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /root/.cargo/bin",
+          "target": "/root/.cargo/bin"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://doc.rust-lang.org/cargo/guide/cargo-home.html"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "cargo-home-config"
+        ]
+      }
+    },
+    {
+      "id": "never/claude-code-keep",
+      "severity": 4,
+      "kind": "never",
+      "title": "Claude Code configuration and state: 6M kept in 5 items",
+      "subject": {
+        "kind": "path",
+        "label": "assistant-config · Claude Code configuration and state"
+      },
+      "detail": "Settings, global instructions, credentials, auto memory, personal skills and the files of running sessions. Claude Code's documentation lists the state files to keep. — Not regenerable. — —",
+      "evidence": [
+        {
+          "label": "/root/.claude/skills — 5M",
+          "path": "/root/.claude/skills"
+        },
+        {
+          "label": "/root/.claude/plugins — 1M",
+          "path": "/root/.claude/plugins"
+        },
+        {
+          "label": "/root/.claude.json — 60K",
+          "path": "/root/.claude.json"
+        },
+        {
+          "label": "/root/.claude/sessions — 12K",
+          "path": "/root/.claude/sessions"
+        },
+        {
+          "label": "/root/.claude/settings.json — 4K",
+          "path": "/root/.claude/settings.json"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Shown for size only; Cleanator never proposes it"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /root/.claude/skills",
+          "target": "/root/.claude/skills"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://code.claude.com/docs/en/claude-directory"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "claude-code-keep"
+        ]
+      }
+    },
+    {
+      "id": "never/assistant-config-misc",
+      "severity": 4,
+      "kind": "never",
+      "title": "Configuration and credentials of other assistants: 4K kept",
+      "subject": {
+        "kind": "path",
+        "label": "assistant-config · Configuration and credentials of other assistants"
+      },
+      "detail": "Settings, MCP server definitions, project instructions and secrets. Never proposed, never cited in the script, never displayed in detail (R10 bis). — — — —",
+      "evidence": [
+        {
+          "label": "/root/.config/amp — 4K",
+          "path": "/root/.config/amp"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Shown for size only; Cleanator never proposes it"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open /root/.config/amp",
+          "target": "/root/.config/amp"
+        },
+        {
+          "kind": "open-url",
+          "label": "Why it is regenerable",
+          "target": "https://geminicli.com/docs/cli/configuration/"
+        }
+      ],
+      "open": {
+        "app": "cleanator",
+        "args": [
+          "/home/me",
+          "--select",
+          "assistant-config-misc"
+        ]
+      }
+    }
+  ],
+  "notes": [
+    "37 files in 75 dirs, 70 rules, dormancy 60 days",
+    "13 item(s) used within the window, shown and not proposed"
+  ],
+  "errors": []
+}

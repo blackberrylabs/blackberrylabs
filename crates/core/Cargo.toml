@@ -1,0 +1,17 @@
+[package]
+name = "bbl-core"
+description = "The Blackberrylabs control tower: launches the modules, reads their reports, sorts the findings — never acts"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+bbl-report.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+toml.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
