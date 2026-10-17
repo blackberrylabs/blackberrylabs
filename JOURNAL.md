@@ -17,6 +17,10 @@
   et topics de `blackberrylabs/lastrun` dans `github_meta.sh` ; la description de la tour
   dit aussi « what they actually ran » ; mapping des gravites de Lastrun dans
   `docs/new-module.md`.
+- **Publie** : Lastrun 0.1.0 puis la tour 0.4.0, verifiees depuis l'exterieur ; complet 0.4.0
+  installe a la place du 0.3.1 ; `bbl refresh lastrun` : 7 constats en 0,8 s.
+- **Accroc, de mon fait** : `github_meta.sh` a perdu son bit d'execution dans le commit 0.4.0
+  (recopie depuis une copie qui ne le gardait pas) ; mode 755 rendu par un commit dedie.
 
 ---
 

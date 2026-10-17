@@ -71,8 +71,10 @@ module non plus.
 - [x] Fiche `modules/lastrun.toml`, `spec.rs`, rapport de test (faux HOME de Lastrun),
       comptes 5 → 6 ; paquet complet avec `lastrun` (provides/conflicts/replaces)
 - [x] Hubs : README de la tour, profil de l'organisation, `github_meta.sh`, `new-module.md`
-- [ ] Release de Lastrun 0.1.0 d'abord, puis tour 0.4.0 (paquet seul et complet) — sur accord
-- [ ] Passage reel de `bbl refresh` avec Lastrun installe
+- [x] Release de Lastrun 0.1.0 d'abord, puis tour 0.4.0 (paquet seul et complet) — publiees
+      et verifiees depuis l'exterieur le 2026-10-17
+- [x] Passage reel de `bbl refresh` avec Lastrun installe (complet 0.4.0) : 7 constats en
+      0,8 s, six modules installes
 
 ## Apres 0.1.0 (idees, non engagees)
 - Lire aussi des fiches deposees dans `~/.config/blackberrylabs/modules/` (modules tiers), en plus des fiches embarquees.
