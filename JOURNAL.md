@@ -3,6 +3,23 @@
 
 ---
 
+## 2026-10-17, nuit — Lastrun, sixieme et dernier module (0.4.0)
+
+- **Lastrun 0.1.0** (`replay`, « la boite noire des agents ») entre dans la tour en suivant
+  `docs/new-module.md` : fiche `modules/lastrun.toml`, entree de `spec.rs`, rapport de son
+  faux HOME dans `tests/fixtures/reports/` (chemins `/home/me`, aucune donnee de la machine
+  d'Alexandre), comptes de modules 5 → 6. Essai a blanc fait avant la release du module :
+  seuls ces comptes etaient a changer.
+- **Paquet complet** : `blackberrylabs-full` fournit, remplace et entre en conflit avec
+  `lastrun` comme avec les cinq autres ; `bundle.sh` prend le `.deb` de Lastrun dans
+  `../Lastrun/dist/` (module publie d'abord, tour ensuite).
+- **Hubs** : ligne Lastrun au README de la tour et au profil de l'organisation ; description
+  et topics de `blackberrylabs/lastrun` dans `github_meta.sh` ; la description de la tour
+  dit aussi « what they actually ran » ; mapping des gravites de Lastrun dans
+  `docs/new-module.md`.
+
+---
+
 ## 2026-10-17, soir — un logiciel, pas un lanceur ; une installation, pas six
 
 - **Premier usage par Alexandre** : « quand je clique sur un module, ca ouvre l'autre

@@ -66,6 +66,14 @@ module non plus.
 - [ ] Captures d'ecran de Billfold et Linstruct dans leur README (a faire sur l'ecran
       d'Alexandre) ; aperçus sociaux GitHub des six depots (reglage manuel).
 
+## Etape 6. Sixieme module : Lastrun — tour 0.4.0
+
+- [x] Fiche `modules/lastrun.toml`, `spec.rs`, rapport de test (faux HOME de Lastrun),
+      comptes 5 → 6 ; paquet complet avec `lastrun` (provides/conflicts/replaces)
+- [x] Hubs : README de la tour, profil de l'organisation, `github_meta.sh`, `new-module.md`
+- [ ] Release de Lastrun 0.1.0 d'abord, puis tour 0.4.0 (paquet seul et complet) — sur accord
+- [ ] Passage reel de `bbl refresh` avec Lastrun installe
+
 ## Apres 0.1.0 (idees, non engagees)
 - Lire aussi des fiches deposees dans `~/.config/blackberrylabs/modules/` (modules tiers), en plus des fiches embarquees.
 - La tour comme porte d'entree de la famille (idee d'Alexandre, 17/10) : « Get it » ouvre directement le bon paquet de la bonne release (format detecte via `/etc/os-release`), le navigateur telecharge ; R3 intact. README d'organisation qui presente la tour en premier.

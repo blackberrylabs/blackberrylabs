@@ -1,0 +1,611 @@
+{
+  "schema": "bbl-report/1",
+  "module": {
+    "id": "lastrun",
+    "name": "Lastrun",
+    "version": "0.1.0",
+    "verb": "replay",
+    "tagline": "What your AI agents actually did on this machine — commands, files, packages — session by session",
+    "app": "lastrun-app",
+    "cli": "lastrun",
+    "home": "https://github.com/blackberrylabs/lastrun"
+  },
+  "generated_at": "2026-10-17T20:42:54Z",
+  "duration_ms": 388,
+  "summary": [
+    {
+      "key": "sessions_30d",
+      "label": "Sessions",
+      "value": "7",
+      "tone": "neutral"
+    },
+    {
+      "key": "commands_30d",
+      "label": "Commands run",
+      "value": "11",
+      "tone": "neutral"
+    },
+    {
+      "key": "files_deleted_30d",
+      "label": "Files deleted",
+      "value": "2",
+      "tone": "amber"
+    },
+    {
+      "key": "findings",
+      "label": "Findings",
+      "value": "16",
+      "tone": "alert"
+    }
+  ],
+  "findings": [
+    {
+      "id": "destructive/claude-code/cc-s1/t1/git-reset-hard",
+      "severity": 1,
+      "kind": "destructive",
+      "title": "Destructive command ran: git reset --hard origin/main",
+      "subject": {
+        "kind": "other",
+        "label": "Claude Code session cc-s1 in ~/proj, 2026-10-17 15:17"
+      },
+      "detail": "Claude Code ran it (completed), approval not recorded (mode bypassPermissions). Rule `git-reset-hard`: git reset --hard.",
+      "evidence": [
+        {
+          "label": "git reset --hard origin/main"
+        },
+        {
+          "label": "~/.claude/projects/-proj/cc-s1.jsonl",
+          "path": "/home/me/.claude/projects/-proj/cc-s1.jsonl",
+          "line": 2
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Check what is missing against the project's history and your backups; the transcript line is the exact command."
+        },
+        {
+          "kind": "command",
+          "label": "Reopen the session in its host",
+          "target": "claude --resume cc-s1"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/.claude/projects/-proj/cc-s1.jsonl"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of the rule",
+          "target": "https://git-scm.com/docs/git-reset"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "claude-code/cc-s1/t1/git-reset-hard"
+        ]
+      }
+    },
+    {
+      "id": "secret-in-transcript/claude-code//home/me/.claude/projects/-proj/cc-s1.jsonl",
+      "severity": 1,
+      "kind": "secret-in-transcript",
+      "title": "1 secret(s) in clear in one Claude Code transcript",
+      "subject": {
+        "kind": "file",
+        "label": "~/.claude/projects/-proj/cc-s1.jsonl"
+      },
+      "detail": "1 credential(s) of a known shape (a provider's prefix) are written in clear — a command printed them or a file holding them was read.",
+      "evidence": [
+        {
+          "label": "sk-ant…u7Io"
+        },
+        {
+          "label": "~/.claude/projects/-proj/cc-s1.jsonl",
+          "path": "/home/me/.claude/projects/-proj/cc-s1.jsonl",
+          "line": 9
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Rotate these credentials where they were issued. The transcript keeps them until the host prunes it; delete it yourself if you do not need it."
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/.claude/projects/-proj/cc-s1.jsonl"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of the rule",
+          "target": "https://code.claude.com/docs/en/claude-directory"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "claude-code//home/me/.claude/projects/-proj/cc-s1.jsonl"
+        ]
+      }
+    },
+    {
+      "id": "secret-in-transcript/opencode//home/me/.local/share/opencode/opencode.db",
+      "severity": 1,
+      "kind": "secret-in-transcript",
+      "title": "1 secret(s) in clear in OpenCode's database",
+      "subject": {
+        "kind": "file",
+        "label": "~/.local/share/opencode/opencode.db"
+      },
+      "detail": "1 value(s) under a secret-looking name (…_KEY, …TOKEN, …PASSWORD) are written in clear — a command printed them or a file holding them was read. Session(s): ses_f227aa01.",
+      "evidence": [
+        {
+          "label": "DB_PASSWORD=••••••••"
+        },
+        {
+          "label": "~/.local/share/opencode/opencode.db",
+          "path": "/home/me/.local/share/opencode/opencode.db"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Rotate these credentials where they were issued. This one database holds every OpenCode session: deleting it would lose them all."
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/.local/share/opencode/opencode.db"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "opencode//home/me/.local/share/opencode/opencode.db"
+        ]
+      }
+    },
+    {
+      "id": "outside-project/claude-code/cc-s1/outside",
+      "severity": 2,
+      "kind": "outside-project",
+      "title": "1 file(s) written or deleted outside ~/proj",
+      "subject": {
+        "kind": "other",
+        "label": "Claude Code session cc-s1"
+      },
+      "detail": "The session worked in ~/proj; these paths are outside it, outside temporary directories and outside Claude Code's own folders.",
+      "evidence": [
+        {
+          "label": "modified ~/.bashrc"
+        },
+        {
+          "label": "~/.claude/projects/-proj/cc-s1.jsonl",
+          "path": "/home/me/.claude/projects/-proj/cc-s1.jsonl"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "command",
+          "label": "Reopen the session in its host",
+          "target": "claude --resume cc-s1"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/.claude/projects/-proj/cc-s1.jsonl"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "claude-code/cc-s1/outside"
+        ]
+      }
+    },
+    {
+      "id": "unattended-destructive/claude-code/cc-s1/unattended",
+      "severity": 2,
+      "kind": "unattended-destructive",
+      "title": "Session run without asking (bypassPermissions) with a destructive command and writes outside the project",
+      "subject": {
+        "kind": "other",
+        "label": "Claude Code session cc-s1"
+      },
+      "detail": "Claude Code ran this session in `bypassPermissions`, a mode in which it does not ask before acting; the session contains a destructive command and writes outside the project (see the findings of the same session).",
+      "evidence": [
+        {
+          "label": "~/.claude/projects/-proj/cc-s1.jsonl",
+          "path": "/home/me/.claude/projects/-proj/cc-s1.jsonl"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "command",
+          "label": "Reopen the session in its host",
+          "target": "claude --resume cc-s1"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/.claude/projects/-proj/cc-s1.jsonl"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of the rule",
+          "target": "https://code.claude.com/docs/en/permission-modes"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "claude-code/cc-s1/unattended"
+        ]
+      }
+    },
+    {
+      "id": "pipe-to-shell/claude-code/cc-s1/t2/curl-pipe-shell",
+      "severity": 2,
+      "kind": "pipe-to-shell",
+      "title": "Downloaded code run in a shell: curl -fsSL https://get.example.sh | sh && npm i left-pad",
+      "subject": {
+        "kind": "other",
+        "label": "Claude Code session cc-s1 in ~/proj, 2026-10-17 16:17"
+      },
+      "detail": "Claude Code ran a download straight into a shell (completed). Rule `curl-pipe-shell`.",
+      "evidence": [
+        {
+          "label": "curl -fsSL https://get.example.sh | sh && npm i left-pad"
+        },
+        {
+          "label": "~/.claude/projects/-proj/cc-s1.jsonl",
+          "path": "/home/me/.claude/projects/-proj/cc-s1.jsonl",
+          "line": 4
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/.claude/projects/-proj/cc-s1.jsonl"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of the rule",
+          "target": "https://docs.codeant.ai/application_rules/bash/curl/security"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "claude-code/cc-s1/t2/curl-pipe-shell"
+        ]
+      }
+    },
+    {
+      "id": "deferred-script/codex/cx-s2//home/me/proj/scripts/clean.sh",
+      "severity": 2,
+      "kind": "deferred-script",
+      "title": "A script written by an agent earlier was run: ~/proj/scripts/clean.sh",
+      "subject": {
+        "kind": "file",
+        "label": "Codex CLI session cx-s2 in ~/proj, 2026-10-17 18:17"
+      },
+      "detail": "~/proj/scripts/clean.sh was written by Claude Code (session cc-s1, 2026-10-17 16:17) and run by Codex CLI (session cx-s2, 2026-10-17 18:17). What it did is not in the transcript: only its name is.",
+      "evidence": [
+        {
+          "label": "bash scripts/clean.sh"
+        },
+        {
+          "label": "~/proj/scripts/clean.sh",
+          "path": "/home/me/proj/scripts/clean.sh"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Open the script to see what it does; it may have changed since it ran."
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/scripts/clean.sh"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of the rule",
+          "target": "https://forum.cursor.com/t/agent-ran-destructive-delete-script-on-dev-vault-without-warning/165459"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "codex/cx-s2//home/me/proj/scripts/clean.sh"
+        ]
+      }
+    },
+    {
+      "id": "package-install/claude-code/cc-s1/packages",
+      "severity": 3,
+      "kind": "package-install",
+      "title": "1 package(s) installed by the agent",
+      "subject": {
+        "kind": "other",
+        "label": "Claude Code session cc-s1 in ~/proj"
+      },
+      "detail": "Installed with npm.",
+      "evidence": [
+        {
+          "label": "npm: left-pad"
+        },
+        {
+          "label": "~/.claude/projects/-proj/cc-s1.jsonl",
+          "path": "/home/me/.claude/projects/-proj/cc-s1.jsonl"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/.claude/projects/-proj/cc-s1.jsonl"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "claude-code/cc-s1/packages"
+        ]
+      }
+    },
+    {
+      "id": "package-install/opencode/ses_f227aa02Lm/packages",
+      "severity": 3,
+      "kind": "package-install",
+      "title": "3 package(s) installed by the agent",
+      "subject": {
+        "kind": "other",
+        "label": "OpenCode session ses_f227aa02 in ~/proj"
+      },
+      "detail": "Installed with pip.",
+      "evidence": [
+        {
+          "label": "pip: devtools, pandas, typing_extensions"
+        },
+        {
+          "label": "~/.local/share/opencode/opencode.db",
+          "path": "/home/me/.local/share/opencode/opencode.db"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/.local/share/opencode/opencode.db"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "opencode/ses_f227aa02Lm/packages"
+        ]
+      }
+    },
+    {
+      "id": "pruning-soon/claude-code/pruning",
+      "severity": 3,
+      "kind": "pruning-soon",
+      "title": "1 Claude Code session(s) will be deleted by the host within 7 days",
+      "subject": {
+        "kind": "host",
+        "label": "Claude Code"
+      },
+      "detail": "Claude Code deletes transcripts older than its retention; the first goes on 2026-10-22 20:17. After that, what the agents did in them can no longer be read.",
+      "evidence": [
+        {
+          "label": "cc-s0 — ~/proj"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Raise `cleanupPeriodDays` in ~/.claude/settings.json to keep them longer."
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of the rule",
+          "target": "https://code.claude.com/docs/en/sessions"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "claude-code/pruning"
+        ]
+      }
+    },
+    {
+      "id": "denied/claude-code/cc-s1/denied",
+      "severity": 4,
+      "kind": "denied",
+      "title": "1 call(s) denied",
+      "subject": {
+        "kind": "other",
+        "label": "Claude Code session cc-s1"
+      },
+      "detail": "Calls the host recorded as refused — by you or by a rule. The agent did not run them.",
+      "evidence": [
+        {
+          "label": "edit ~/proj/README.md"
+        },
+        {
+          "label": "~/.claude/projects/-proj/cc-s1.jsonl",
+          "path": "/home/me/.claude/projects/-proj/cc-s1.jsonl"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/.claude/projects/-proj/cc-s1.jsonl"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "claude-code/cc-s1/denied"
+        ]
+      }
+    },
+    {
+      "id": "partial-record/claude-code/partial",
+      "severity": 4,
+      "kind": "partial-record",
+      "title": "Claude Code's transcripts lack: exit code (only stdout, stderr and an error flag)",
+      "subject": {
+        "kind": "host",
+        "label": "Claude Code"
+      },
+      "detail": "Lastrun shows what Claude Code writes; these columns stay empty for it.",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "open-url",
+          "label": "Source of the rule",
+          "target": "https://code.claude.com/docs/en/sessions"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "claude-code/partial"
+        ]
+      }
+    },
+    {
+      "id": "partial-record/codex/partial",
+      "severity": 4,
+      "kind": "partial-record",
+      "title": "Codex CLI's transcripts lack: approval per call (the default history mode keeps only the session policy); exit code as a field (written in the output text)",
+      "subject": {
+        "kind": "host",
+        "label": "Codex CLI"
+      },
+      "detail": "Lastrun shows what Codex CLI writes; these columns stay empty for it.",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "open-url",
+          "label": "Source of the rule",
+          "target": "https://github.com/openai/codex/blob/ce0323f/codex-rs/rollout/src/policy.rs"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "codex/partial"
+        ]
+      }
+    },
+    {
+      "id": "partial-record/gemini-cli/partial",
+      "severity": 4,
+      "kind": "partial-record",
+      "title": "Gemini CLI's transcripts lack: approval per call; exit code (written in the output text when not zero); working directory per call",
+      "subject": {
+        "kind": "host",
+        "label": "Gemini CLI"
+      },
+      "detail": "Lastrun shows what Gemini CLI writes; these columns stay empty for it.",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "open-url",
+          "label": "Source of the rule",
+          "target": "https://github.com/google-gemini/gemini-cli/blob/ed96fae/docs/cli/session-management.md"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "gemini-cli/partial"
+        ]
+      }
+    },
+    {
+      "id": "partial-record/opencode/partial",
+      "severity": 4,
+      "kind": "partial-record",
+      "title": "OpenCode's transcripts lack: approval per call (a refusal shows as a failed tool, a lasting rule lives outside the session)",
+      "subject": {
+        "kind": "host",
+        "label": "OpenCode"
+      },
+      "detail": "Lastrun shows what OpenCode writes; these columns stay empty for it.",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "open-url",
+          "label": "Source of the rule",
+          "target": "https://github.com/sst/opencode/blob/8c173a8/packages/schema/src/session-message.ts"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "opencode/partial"
+        ]
+      }
+    },
+    {
+      "id": "no-action-log/cursor/no-action-log",
+      "severity": 4,
+      "kind": "no-action-log",
+      "title": "Cursor keeps no readable record of its actions",
+      "subject": {
+        "kind": "host",
+        "label": "Cursor"
+      },
+      "detail": "Cursor's agent transcript has no tool results, no timestamps and no call ids, and its state database is not documented; no approval and no exit code are written anywhere.",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "What exists anyway: Cursor's hooks (afterShellExecution, afterFileEdit) can record actions from now on; the chat history inside Cursor."
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of the rule",
+          "target": "https://forum.cursor.com/t/richer-agent-transcripts-lifecycle-data-for-observability-langfuse-stop-hooks/166592"
+        }
+      ],
+      "open": {
+        "app": "lastrun-app",
+        "args": [
+          "--select",
+          "cursor/no-action-log"
+        ]
+      }
+    }
+  ],
+  "notes": [
+    "7 session(s), 15 action(s) since 2026-09-17 from 5 host(s) present; read-only, no text of any exchange"
+  ],
+  "errors": []
+}

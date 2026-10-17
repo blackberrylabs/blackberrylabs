@@ -60,9 +60,9 @@ assets = [
 # who wants several tools). Built with `cargo deb --variant full`.
 [package.metadata.deb.variants.full]
 name = "blackberrylabs-full"
-provides = "blackberrylabs, permitt, mcproster, cleanator, linstruct, billfold"
-conflicts = "blackberrylabs, permitt, mcproster, cleanator, linstruct, billfold"
-replaces = "blackberrylabs, permitt, mcproster, cleanator, linstruct, billfold"
+provides = "blackberrylabs, permitt, mcproster, cleanator, linstruct, billfold, lastrun"
+conflicts = "blackberrylabs, permitt, mcproster, cleanator, linstruct, billfold, lastrun"
+replaces = "blackberrylabs, permitt, mcproster, cleanator, linstruct, billfold, lastrun"
 recommends = "libvulkan1, mesa-vulkan-drivers"
 assets = [
     ["target/release/bbl-app", "usr/bin/", "755"],
@@ -114,8 +114,8 @@ assets = [
 [package.metadata.generate-rpm.variants.full]
 name = "blackberrylabs-full"
 summary = "Everything your AI agents do to your machine, on one screen — with every module"
-provides = { blackberrylabs = "*", permitt = "*", mcproster = "*", cleanator = "*", linstruct = "*", billfold = "*" }
-conflicts = { blackberrylabs = "*", permitt = "*", mcproster = "*", cleanator = "*", linstruct = "*", billfold = "*" }
+provides = { blackberrylabs = "*", permitt = "*", mcproster = "*", cleanator = "*", linstruct = "*", billfold = "*", lastrun = "*" }
+conflicts = { blackberrylabs = "*", permitt = "*", mcproster = "*", cleanator = "*", linstruct = "*", billfold = "*", lastrun = "*" }
 assets = [
     { source = "target/release/bbl-app", dest = "/usr/bin/bbl-app", mode = "755" },
     { source = "target/release/bbl", dest = "/usr/bin/bbl", mode = "755" },

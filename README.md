@@ -17,6 +17,7 @@ then pick the modules you need: it works with any subset and shows the others as
 | [Cleanator](https://github.com/blackberrylabs/cleanator) | clean | What AI tooling left on the disk, and what could go |
 | [Linstruct](https://github.com/blackberrylabs/linstruct) | lint | Your AI instruction files (CLAUDE.md, AGENTS.md, .cursor/rules…) as each agent will actually read them, and what it silently drops |
 | [Billfold](https://github.com/blackberrylabs/billfold) | tally | The accounts the machine is wired to, the keys it holds, the tokens each host burned |
+| [Lastrun](https://github.com/blackberrylabs/lastrun) | replay | What your AI agents actually did — commands, files deleted, packages installed — session by session, from their own transcripts |
 
 **Get it**: the [full package](https://github.com/blackberrylabs/blackberrylabs/releases)
 (`blackberrylabs-full`, the tower and every module, one install) or the tower alone, which

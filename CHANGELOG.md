@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.4.0] — 2026-10-17
+
+- Sixth module: **Lastrun** 0.1.0 (`replay`) — what the AI agents did on the machine,
+  session by session — commands, files created, edited and deleted, packages installed,
+  refusals — read back from the transcripts the hosts already write, never their text.
+  Sheet `modules/lastrun.toml`, fixture report in the tests (from Lastrun's own fake home,
+  no real machine data), time limit 120 s.
+- The full package `blackberrylabs-full` ships Lastrun too (provides, conflicts and
+  replaces the `lastrun` package).
+- `docs/new-module.md`: Lastrun's severity mapping added to the examples.
+
 ## [0.3.1] — 2026-10-17
 
 - Packaging only: in the full package the modules' menu entries are hidden (`NoDisplay`) —

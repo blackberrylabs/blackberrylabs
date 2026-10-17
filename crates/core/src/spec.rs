@@ -77,6 +77,7 @@ pub struct Modules {
 pub const EMBEDDED: &[(&str, &str)] = &[
     ("billfold.toml", include_str!("../../../modules/billfold.toml")),
     ("cleanator.toml", include_str!("../../../modules/cleanator.toml")),
+    ("lastrun.toml", include_str!("../../../modules/lastrun.toml")),
     ("linstruct.toml", include_str!("../../../modules/linstruct.toml")),
     ("mcproster.toml", include_str!("../../../modules/mcproster.toml")),
     ("permitt.toml", include_str!("../../../modules/permitt.toml")),
@@ -140,7 +141,7 @@ mod tests {
     fn embedded_sheets_are_valid_and_in_family_order() {
         let m = Modules::embedded();
         let ids: Vec<&str> = m.specs.iter().map(|s| s.id.as_str()).collect();
-        assert_eq!(ids, ["billfold", "cleanator", "linstruct", "mcproster", "permitt"]);
+        assert_eq!(ids, ["billfold", "cleanator", "lastrun", "linstruct", "mcproster", "permitt"]);
         assert_eq!(m.get("cleanator").unwrap().cli, "cleanator-cli");
         assert_eq!(m.get("permitt").unwrap().app.as_deref(), Some("permitt-app"));
     }

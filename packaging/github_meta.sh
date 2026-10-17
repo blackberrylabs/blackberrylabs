@@ -17,7 +17,7 @@ set_repo() { # name, homepage, description, topics...
 }
 
 set_repo blackberrylabs "https://github.com/$ORG" \
-  "One screen for everything your AI coding agents do to your machine — permissions, MCP servers, instruction files, disk left behind, AI spend — sorted by severity. Read-only tools, gathered. Linux, Rust." \
+  "One screen for everything your AI coding agents do to your machine — permissions, MCP servers, instruction files, disk left behind, AI spend, what they actually ran — sorted by severity. Read-only tools, gathered. Linux, Rust." \
   claude-code mcp ai-agents ai-coding ai-tools vibe-coding permissions disk-usage developer-tools audit read-only rust linux blackberrylabs
 
 set_repo permitt "$TOWER" \
@@ -39,6 +39,10 @@ set_repo linstruct "$TOWER" \
 set_repo billfold "$TOWER" \
   "The API keys and accounts your machine holds — Claude Code, Codex, Cursor, Gemini CLI, OpenCode — and the tokens each host burned, priced at API rates. Read-only, no network, no balance fetched. Linux, Rust." \
   api-keys token-usage cost-tracking llm-costs claude-code codex cursor gemini-cli opencode anthropic openai ai-agents ai-tools vibe-coding read-only rust linux blackberrylabs
+
+set_repo lastrun "$TOWER" \
+  "What your AI coding agents actually did — commands, files deleted, packages installed, session by session — read back from the transcripts Claude Code, Codex, OpenCode and Gemini CLI already write. Never their text. Read-only. Linux, Rust." \
+  claude-code codex opencode gemini-cli audit-log transcripts session-history ai-agents ai-security ai-coding ai-tools vibe-coding read-only rust linux blackberrylabs
 
 set_repo bbl-hostrules "$TOWER" \
   "Where each AI coding host keeps its files, and how to read them: sourced host sheets, config readers, secret masking — the foundation under the Blackberrylabs tools. Rust crate." \

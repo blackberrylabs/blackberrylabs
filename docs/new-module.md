@@ -65,6 +65,11 @@ Existing mappings, for consistency:
 - MCProster: secret in clear → 1; wide access, confirmations skipped → 2; duplicate,
   versions differ, command missing, context cost → 3; unreadable, disabled, not in cache → 4.
 - Cleanator: a group that frees 1 GiB or more → 2; less → 3; `never` → 4.
+- Lastrun: a destructive command that ran, a secret in clear in a transcript → 1; a write
+  outside the session's project, a session run without asking with a destructive or
+  outside write, downloaded code piped to a shell, a script written in one session and run
+  in a later one → 2; packages installed, transcripts pruned within 7 days → 3; refusals,
+  what a host's transcripts lack, a host that keeps no record of its actions → 4.
 - Linstruct: a host cuts or skips content, a secret in clear → 1; past a documented limit
   with undocumented consequence, a file the host never reads, a dead `@` reference, a front
   matter that does not apply as written → 2; shadowed, over the recommended length, a
