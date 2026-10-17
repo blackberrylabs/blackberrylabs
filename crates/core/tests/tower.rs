@@ -1,5 +1,5 @@
 //! The tower on fake modules: shell scripts named like the real binaries, each printing one
-//! of the three real reports (`tests/fixtures/reports/*.json`, paths scrubbed). What is
+//! of the real reports (`tests/fixtures/reports/*.json`, paths scrubbed). What is
 //! checked: an absent module is shown, a saved report is read with its age, a refresh writes
 //! only under the state directory (R2), a report of another schema or with extra fields is
 //! read without breaking, a failing module is reported not crashed.
@@ -68,7 +68,8 @@ fn an_absent_module_is_shown_and_saved_reports_are_read() {
     let modules = Modules::embedded();
     // Nothing saved yet.
     let d = Dashboard::from_saved(&modules, &cache, std::slice::from_ref(&w.bin));
-    assert_eq!(d.modules.len(), 3);
+    assert_eq!(d.modules.len(), 4);
+    assert_eq!(d.module("linstruct").unwrap().state, ReportState::NotInstalled);
     assert_eq!(d.module("cleanator").unwrap().state, ReportState::NotInstalled);
     assert!(!d.module("cleanator").unwrap().installed);
     assert_eq!(d.module("permitt").unwrap().state, ReportState::NoReport);
@@ -175,8 +176,8 @@ fn a_failing_module_is_reported_not_crashed() {
 }
 
 #[test]
-fn the_three_real_reports_conform_and_open_their_module() {
-    for (name, app) in [("cleanator.json", "cleanator"), ("mcproster.json", "mcproster-app"), ("permitt.json", "permitt-app")] {
+fn the_real_reports_conform_and_open_their_module() {
+    for (name, app) in [("cleanator.json", "cleanator"), ("linstruct.json", "linstruct-app"), ("mcproster.json", "mcproster-app"), ("permitt.json", "permitt-app")] {
         let r = bbl_report::conformance::check(&fixture(name)).unwrap_or_else(|e| panic!("{name}: {e:?}"));
         assert_eq!(r.module.app.as_deref(), Some(app));
         for f in r.findings.iter().filter(|f| f.open.is_some()) {

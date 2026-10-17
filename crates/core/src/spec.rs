@@ -53,6 +53,7 @@ pub struct Modules {
 /// The sheets shipped with this version of the tower.
 pub const EMBEDDED: &[(&str, &str)] = &[
     ("cleanator.toml", include_str!("../../../modules/cleanator.toml")),
+    ("linstruct.toml", include_str!("../../../modules/linstruct.toml")),
     ("mcproster.toml", include_str!("../../../modules/mcproster.toml")),
     ("permitt.toml", include_str!("../../../modules/permitt.toml")),
 ];
@@ -115,7 +116,7 @@ mod tests {
     fn embedded_sheets_are_valid_and_in_family_order() {
         let m = Modules::embedded();
         let ids: Vec<&str> = m.specs.iter().map(|s| s.id.as_str()).collect();
-        assert_eq!(ids, ["cleanator", "mcproster", "permitt"]);
+        assert_eq!(ids, ["cleanator", "linstruct", "mcproster", "permitt"]);
         assert_eq!(m.get("cleanator").unwrap().cli, "cleanator-cli");
         assert_eq!(m.get("permitt").unwrap().app.as_deref(), Some("permitt-app"));
     }

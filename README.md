@@ -11,6 +11,7 @@ run AI on Linux:
 | [Cleanator](https://github.com/blackberrylabs/cleanator) | clean | What AI tooling left on the disk, and what could go |
 | [MCProster](https://github.com/blackberrylabs/mcproster) | inventory | Every MCP server declared on the machine, once, with what is wrong |
 | [Permitt](https://github.com/blackberrylabs/permitt) | inspect | What each AI assistant may do without asking, and which setting says so |
+| [Linstruct](https://github.com/blackberrylabs/linstruct) | lint | Your AI instruction files (CLAUDE.md, AGENTS.md, .cursor/rules…) as each agent will actually read them, and what it silently drops |
 
 The tower computes nothing. It launches the installed modules, reads their reports
 ([`bbl-report/1`](https://github.com/blackberrylabs/bbl-report)), merges them into one list

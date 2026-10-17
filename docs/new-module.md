@@ -40,7 +40,9 @@ upstream. The tower displays; it never reinterprets, never runs an action, never
 link by itself.
 
 Pick the grain that keeps the tower's list readable: Permitt and MCProster send one line per
-finding (a handful each); Cleanator sends one line per rule group, not one per file.
+finding (a handful each); Cleanator sends one line per rule group, not one per file;
+Linstruct leaves out what concerns hosts that are not on the machine (its app shows them as
+"what if").
 
 The module's tests run `bbl_report::conformance::check` on the module's own output — the
 template does.
@@ -63,6 +65,10 @@ Existing mappings, for consistency:
 - MCProster: secret in clear → 1; wide access, confirmations skipped → 2; duplicate,
   versions differ, command missing, context cost → 3; unreadable, disabled, not in cache → 4.
 - Cleanator: a group that frees 1 GiB or more → 2; less → 3; `never` → 4.
+- Linstruct: a host cuts or skips content, a secret in clear → 1; past a documented limit
+  with undocumented consequence, a file the host never reads, a dead `@` reference, a front
+  matter that does not apply as written → 2; shadowed, over the recommended length, a
+  duplicate, HTML comments sent to the model, a legacy name → 3; empty, unreadable → 4.
 
 ## 3. `--select` in the app
 

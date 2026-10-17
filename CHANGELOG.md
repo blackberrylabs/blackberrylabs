@@ -1,9 +1,12 @@
 # Changelog
 
-## [Unreleased]
+## [0.2.0] — 2026-10-17
 
+- Fourth module: **Linstruct** 0.1.0 (`lint`) — your AI instruction files (CLAUDE.md,
+  AGENTS.md, .cursor/rules…) as each agent will actually read them, and what it silently
+  drops. Sheet `modules/linstruct.toml`, fixture report in the tests, time limit 120 s.
 - `docs/new-module.md`: how a module joins the family, with the module template
-  (`blackberrylabs/template`).
+  (`blackberrylabs/template`); Linstruct's severity mapping added to the examples.
 
 ## [0.1.0] — 2026-10-17
 

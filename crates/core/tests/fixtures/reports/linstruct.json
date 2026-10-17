@@ -1,0 +1,897 @@
+{
+  "schema": "bbl-report/1",
+  "module": {
+    "id": "linstruct",
+    "name": "Linstruct",
+    "version": "0.1.0",
+    "verb": "lint",
+    "tagline": "Your AI instruction files, as each agent will actually read them",
+    "app": "linstruct-app",
+    "cli": "linstruct",
+    "home": "https://github.com/blackberrylabs/linstruct"
+  },
+  "generated_at": "2026-10-17T10:57:07Z",
+  "duration_ms": 113,
+  "summary": [
+    {
+      "key": "files",
+      "label": "Instruction files",
+      "value": "16",
+      "tone": "neutral"
+    },
+    {
+      "key": "hosts",
+      "label": "Hosts reading them",
+      "value": "3",
+      "tone": "neutral"
+    },
+    {
+      "key": "heaviest",
+      "label": "Heaviest host (≈ tokens)",
+      "value": "Cursor ≈2966",
+      "tone": "neutral"
+    },
+    {
+      "key": "findings",
+      "label": "Findings",
+      "value": "21",
+      "tone": "alert"
+    }
+  ],
+  "findings": [
+    {
+      "id": "secret/claude-code/proj/CLAUDE.md/line_9",
+      "severity": 1,
+      "kind": "secret",
+      "title": "A secret in `proj/CLAUDE.md` line 9",
+      "subject": {
+        "kind": "file",
+        "label": "Claude Code · proj/CLAUDE.md"
+      },
+      "detail": "value of `OPENAI_API_KEY`: `sk-abc…6789`. The file is sent with every request of every host that loads it. A credential sits in a file that is sent with every request.",
+      "evidence": [
+        {
+          "label": "proj/CLAUDE.md",
+          "path": "/home/me/proj/CLAUDE.md",
+          "line": 9
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Move the value to an environment variable or a secret manager and reference it (`${NAME}`)"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/CLAUDE.md:9"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://code.claude.com/docs/en/memory"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "secret/claude-code/proj/CLAUDE.md/line_9"
+        ]
+      }
+    },
+    {
+      "id": "cut/codex/proj/AGENTS.md",
+      "severity": 1,
+      "kind": "cut",
+      "title": "Codex CLI cuts `proj/AGENTS.md` at line 46",
+      "subject": {
+        "kind": "file",
+        "label": "Codex CLI · proj/AGENTS.md"
+      },
+      "detail": "Codex CLI reads at most 2000 bytes of project instructions in total; the budget runs out inside this file and the rest is dropped with no message in the interface. Content you wrote is not read: the host cuts or skips it, and nothing tells you.",
+      "evidence": [
+        {
+          "label": "proj/AGENTS.md",
+          "path": "/home/me/proj/AGENTS.md",
+          "line": 46
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Split the instructions so the whole chain stays under 2000 bytes, or raise the limit in the host's configuration"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/AGENTS.md:46"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://github.com/openai/codex/blob/main/codex-rs/core/src/agents_md.rs"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "cut/codex/proj/AGENTS.md"
+        ]
+      }
+    },
+    {
+      "id": "cut/codex/proj/sub/AGENTS.md/from_proj/sub",
+      "severity": 1,
+      "kind": "cut",
+      "title": "Codex CLI started in `proj/sub` cuts `proj/sub/AGENTS.md` at line 1",
+      "subject": {
+        "kind": "file",
+        "label": "Codex CLI · proj/sub/AGENTS.md"
+      },
+      "detail": "Codex CLI builds its chain from the project root down to the directory it starts in; with the root file(s), the 2000 bytes run out inside this file. Content you wrote is not read: the host cuts or skips it, and nothing tells you.",
+      "evidence": [
+        {
+          "label": "proj/sub/AGENTS.md",
+          "path": "/home/me/proj/sub/AGENTS.md",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Shorten the root file or this one"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/sub/AGENTS.md:1"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://github.com/openai/codex/blob/main/codex-rs/core/src/agents_md.rs"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "cut/codex/proj/sub/AGENTS.md/from_proj/sub"
+        ]
+      }
+    },
+    {
+      "id": "ignored/claude-code/proj/AGENTS.local.md",
+      "severity": 2,
+      "kind": "ignored",
+      "title": "Claude Code does not read `proj/AGENTS.local.md`",
+      "subject": {
+        "kind": "file",
+        "label": "Claude Code · proj/AGENTS.local.md"
+      },
+      "detail": "Claude Code does not read AGENTS.local.md, AGENTS.override.md or anything under .agents/; put the instructions in CLAUDE.md or CLAUDE.local.md. The host never reads this file; the instructions in it have no effect there.",
+      "evidence": [
+        {
+          "label": "proj/AGENTS.local.md",
+          "path": "/home/me/proj/AGENTS.local.md"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Move the instructions to `CLAUDE.local.md`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/AGENTS.local.md"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://code.claude.com/docs/en/memory"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "ignored/claude-code/proj/AGENTS.local.md"
+        ]
+      }
+    },
+    {
+      "id": "frontmatter/claude-code/proj/.claude/rules/r1.md/fields",
+      "severity": 2,
+      "kind": "frontmatter",
+      "title": "Claude Code ignores `globs` in the front matter of `proj/.claude/rules/r1.md`",
+      "subject": {
+        "kind": "file",
+        "label": "Claude Code · proj/.claude/rules/r1.md"
+      },
+      "detail": "Claude Code reads only `paths`; any other field is ignored without an error, so the rule does not behave as the header suggests. The rule does not apply the way its header says.",
+      "evidence": [
+        {
+          "label": "proj/.claude/rules/r1.md",
+          "path": "/home/me/proj/.claude/rules/r1.md",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Keep only `paths`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/.claude/rules/r1.md:1"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://code.claude.com/docs/en/memory"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "frontmatter/claude-code/proj/.claude/rules/r1.md/fields"
+        ]
+      }
+    },
+    {
+      "id": "dead-import/claude-code/proj/CLAUDE.md/line_5/docs/quoted_file.md",
+      "severity": 2,
+      "kind": "dead-import",
+      "title": "`@\"docs/quoted file.md\"` in `proj/CLAUDE.md` is not imported: quoted path",
+      "subject": {
+        "kind": "file",
+        "label": "Claude Code · proj/CLAUDE.md"
+      },
+      "detail": "Claude Code does not import a path wrapped in quotes. A reference that brings nothing in: the target is missing, too deep, or the host does not expand references.",
+      "evidence": [
+        {
+          "label": "proj/CLAUDE.md",
+          "path": "/home/me/proj/CLAUDE.md",
+          "line": 5
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Escape spaces with a backslash instead of quoting"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/CLAUDE.md:5"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://code.claude.com/docs/en/memory"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "dead-import/claude-code/proj/CLAUDE.md/line_5/docs/quoted_file.md"
+        ]
+      }
+    },
+    {
+      "id": "dead-import/claude-code/proj/CLAUDE.md/line_5/docs/missing.md",
+      "severity": 2,
+      "kind": "dead-import",
+      "title": "`@docs/missing.md` in `proj/CLAUDE.md` points to a missing file",
+      "subject": {
+        "kind": "file",
+        "label": "Claude Code · proj/CLAUDE.md"
+      },
+      "detail": "Claude Code would import it at launch; there is nothing at `proj/docs/missing.md`. A reference that brings nothing in: the target is missing, too deep, or the host does not expand references.",
+      "evidence": [
+        {
+          "label": "proj/CLAUDE.md",
+          "path": "/home/me/proj/CLAUDE.md",
+          "line": 5
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Fix the path or remove the reference"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/CLAUDE.md:5"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://code.claude.com/docs/en/memory"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "dead-import/claude-code/proj/CLAUDE.md/line_5/docs/missing.md"
+        ]
+      }
+    },
+    {
+      "id": "ignored/codex/proj/CLAUDE.md",
+      "severity": 2,
+      "kind": "ignored",
+      "title": "Codex CLI does not read `proj/CLAUDE.md`",
+      "subject": {
+        "kind": "file",
+        "label": "Codex CLI · proj/CLAUDE.md"
+      },
+      "detail": "Codex reads CLAUDE.md only when it is listed in project_doc_fallback_filenames; by default the list is empty. The host never reads this file; the instructions in it have no effect there.",
+      "evidence": [
+        {
+          "label": "proj/CLAUDE.md",
+          "path": "/home/me/proj/CLAUDE.md"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Move the instructions to `AGENTS.md`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/CLAUDE.md"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://learn.chatgpt.com/docs/agent-configuration/agents-md.md"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "ignored/codex/proj/CLAUDE.md"
+        ]
+      }
+    },
+    {
+      "id": "dead-import/cursor/proj/CLAUDE.md/line_5/docs/style.md",
+      "severity": 2,
+      "kind": "dead-import",
+      "title": "Cursor does not expand `@docs/style.md` in `proj/CLAUDE.md`",
+      "subject": {
+        "kind": "file",
+        "label": "Cursor · proj/CLAUDE.md"
+      },
+      "detail": "The file exists, but Cursor does not inline `@` references: the model reads the literal `@docs/style.md` and may or may not open it. A reference that brings nothing in: the target is missing, too deep, or the host does not expand references.",
+      "evidence": [
+        {
+          "label": "proj/CLAUDE.md",
+          "path": "/home/me/proj/CLAUDE.md",
+          "line": 5
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Paste the content, or point to the file in plain words (\"see docs/style.md\")"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/CLAUDE.md:5"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://cursor.com/docs/context/rules"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "dead-import/cursor/proj/CLAUDE.md/line_5/docs/style.md"
+        ]
+      }
+    },
+    {
+      "id": "ignored/cursor/proj/.cursor/rules/plain.md",
+      "severity": 2,
+      "kind": "ignored",
+      "title": "Cursor does not read `proj/.cursor/rules/plain.md`",
+      "subject": {
+        "kind": "file",
+        "label": "Cursor · proj/.cursor/rules/plain.md"
+      },
+      "detail": "A plain .md file in .cursor/rules is ignored by the rules system because it has no front matter; rename it to .mdc or use AGENTS.md. The host never reads this file; the instructions in it have no effect there.",
+      "evidence": [
+        {
+          "label": "proj/.cursor/rules/plain.md",
+          "path": "/home/me/proj/.cursor/rules/plain.md"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Move the instructions to `.cursor/rules/<name>.mdc`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/.cursor/rules/plain.md"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://cursor.com/docs/context/rules"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "ignored/cursor/proj/.cursor/rules/plain.md"
+        ]
+      }
+    },
+    {
+      "id": "frontmatter/cursor/proj/.cursor/rules/broken.mdc/invalid",
+      "severity": 2,
+      "kind": "frontmatter",
+      "title": "Invalid front matter in `proj/.cursor/rules/broken.mdc`",
+      "subject": {
+        "kind": "file",
+        "label": "Cursor · proj/.cursor/rules/broken.mdc"
+      },
+      "detail": "invalid YAML: did not find expected alphabetic or numeric character at line 1 column 10, while scanning an alias at line 1 column 9. Cursor does not load a rule whose front matter is broken. The rule does not apply the way its header says.",
+      "evidence": [
+        {
+          "label": "proj/.cursor/rules/broken.mdc",
+          "path": "/home/me/proj/.cursor/rules/broken.mdc",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Fix the YAML (quote values with `:` or `*`, close the `---`)"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/.cursor/rules/broken.mdc:1"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://cursor.com/docs/context/rules"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "frontmatter/cursor/proj/.cursor/rules/broken.mdc/invalid"
+        ]
+      }
+    },
+    {
+      "id": "frontmatter/cursor/proj/.cursor/rules/zig.mdc/globs",
+      "severity": 2,
+      "kind": "frontmatter",
+      "title": "No file of the project matches `globs` in `proj/.cursor/rules/zig.mdc`",
+      "subject": {
+        "kind": "file",
+        "label": "Cursor · proj/.cursor/rules/zig.mdc"
+      },
+      "detail": "Pattern(s) `*.zig`: nothing in this project matches, so the rule never attaches. The rule does not apply the way its header says.",
+      "evidence": [
+        {
+          "label": "proj/.cursor/rules/zig.mdc",
+          "path": "/home/me/proj/.cursor/rules/zig.mdc",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Fix the pattern (`**/*.ts` for any depth) or drop it"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/.cursor/rules/zig.mdc:1"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://cursor.com/docs/context/rules"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "frontmatter/cursor/proj/.cursor/rules/zig.mdc/globs"
+        ]
+      }
+    },
+    {
+      "id": "frontmatter/cursor/proj/.cursor/rules/manual.mdc/manual",
+      "severity": 2,
+      "kind": "frontmatter",
+      "title": "`proj/.cursor/rules/manual.mdc` applies only when mentioned by hand",
+      "subject": {
+        "kind": "file",
+        "label": "Cursor · proj/.cursor/rules/manual.mdc"
+      },
+      "detail": "None of `alwaysApply=true`, `globs`, `description` is set, so Cursor includes the rule only when you @-mention it in chat. The rule does not apply the way its header says.",
+      "evidence": [
+        {
+          "label": "proj/.cursor/rules/manual.mdc",
+          "path": "/home/me/proj/.cursor/rules/manual.mdc",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Set `alwaysApply: true`, or `globs`, or a `description`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/.cursor/rules/manual.mdc:1"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://cursor.com/docs/context/rules"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "frontmatter/cursor/proj/.cursor/rules/manual.mdc/manual"
+        ]
+      }
+    },
+    {
+      "id": "frontmatter/cursor/proj/.cursor/rules/nofm.mdc",
+      "severity": 2,
+      "kind": "frontmatter",
+      "title": "`proj/.cursor/rules/nofm.mdc` has no front matter: Cursor does not load it",
+      "subject": {
+        "kind": "file",
+        "label": "Cursor · proj/.cursor/rules/nofm.mdc"
+      },
+      "detail": "Cursor needs a `---` header (`alwaysApply`, `globs`, `description`) to load a rule; without it the rule is silently skipped. The rule does not apply the way its header says.",
+      "evidence": [
+        {
+          "label": "proj/.cursor/rules/nofm.mdc",
+          "path": "/home/me/proj/.cursor/rules/nofm.mdc",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Add a front matter with `alwaysApply: true`, or `globs`, or a `description`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/.cursor/rules/nofm.mdc:1"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://cursor.com/docs/context/rules"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "frontmatter/cursor/proj/.cursor/rules/nofm.mdc"
+        ]
+      }
+    },
+    {
+      "id": "duplicate/claude-code/proj/CLAUDE.md/~_.claude_CLAUDE.md",
+      "severity": 3,
+      "kind": "duplicate",
+      "title": "1 paragraph(s) of `proj/CLAUDE.md` repeated in `~/.claude/CLAUDE.md` for Claude Code",
+      "subject": {
+        "kind": "file",
+        "label": "Claude Code · proj/CLAUDE.md"
+      },
+      "detail": "Claude Code loads both files; the shared text (first at line 3 of `proj/CLAUDE.md`, line 7 of `~/.claude/CLAUDE.md`) is paid twice on every request. The same text is loaded twice by this host and paid twice.",
+      "evidence": [
+        {
+          "label": "proj/CLAUDE.md",
+          "path": "/home/me/proj/CLAUDE.md",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Keep the text in one of the two files; point to it from the other"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/CLAUDE.md:3"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "duplicate/claude-code/proj/CLAUDE.md/~_.claude_CLAUDE.md"
+        ]
+      }
+    },
+    {
+      "id": "shadowed/claude-code/proj/AGENTS.md",
+      "severity": 3,
+      "kind": "shadowed",
+      "title": "`proj/AGENTS.md` is not read by Claude Code: `proj/CLAUDE.md` takes its place",
+      "subject": {
+        "kind": "file",
+        "label": "Claude Code · proj/AGENTS.md"
+      },
+      "detail": "Claude Code reads `AGENTS.md` only when there is no `proj/CLAUDE.md` here. With the default Project instructions setting; `claude-md-and-agents-md` reads both. The host reads this kind of file, but another file takes its place here.",
+      "evidence": [
+        {
+          "label": "proj/AGENTS.md",
+          "path": "/home/me/proj/AGENTS.md"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Merge the instructions into `proj/CLAUDE.md`, or remove the one you do not use"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/AGENTS.md"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://code.claude.com/docs/en/memory"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "shadowed/claude-code/proj/AGENTS.md"
+        ]
+      }
+    },
+    {
+      "id": "over-length/claude-code/proj/CLAUDE.md",
+      "severity": 3,
+      "kind": "over-length",
+      "title": "`proj/CLAUDE.md` is long for Claude Code: 230 lines where Claude Code recommends under 200",
+      "subject": {
+        "kind": "file",
+        "label": "Claude Code · proj/CLAUDE.md"
+      },
+      "detail": "Every line is sent with every request; past the host's guidance, adherence drops. Longer than the host recommends; every line costs context on every request and dilutes the rest.",
+      "evidence": [
+        {
+          "label": "proj/CLAUDE.md",
+          "path": "/home/me/proj/CLAUDE.md"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Keep what is always true; move reference material to files the agent opens on demand"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/CLAUDE.md"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://code.claude.com/docs/en/memory"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "over-length/claude-code/proj/CLAUDE.md"
+        ]
+      }
+    },
+    {
+      "id": "shadowed/claude-code/proj/empty/AGENTS.md",
+      "severity": 3,
+      "kind": "shadowed",
+      "title": "`proj/empty/AGENTS.md` is not read by Claude Code: `proj/CLAUDE.md` takes its place",
+      "subject": {
+        "kind": "file",
+        "label": "Claude Code · proj/empty/AGENTS.md"
+      },
+      "detail": "Claude Code reads `AGENTS.md` only when there is no `proj/CLAUDE.md` here. With the default Project instructions setting; `claude-md-and-agents-md` reads both. The host reads this kind of file, but another file takes its place here.",
+      "evidence": [
+        {
+          "label": "proj/empty/AGENTS.md",
+          "path": "/home/me/proj/empty/AGENTS.md"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Merge the instructions into `proj/CLAUDE.md`, or remove the one you do not use"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/empty/AGENTS.md"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://code.claude.com/docs/en/memory"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "shadowed/claude-code/proj/empty/AGENTS.md"
+        ]
+      }
+    },
+    {
+      "id": "shadowed/claude-code/proj/sub/AGENTS.md",
+      "severity": 3,
+      "kind": "shadowed",
+      "title": "`proj/sub/AGENTS.md` is not read by Claude Code: `proj/CLAUDE.md` takes its place",
+      "subject": {
+        "kind": "file",
+        "label": "Claude Code · proj/sub/AGENTS.md"
+      },
+      "detail": "Claude Code reads `AGENTS.md` only when there is no `proj/CLAUDE.md` here. With the default Project instructions setting; `claude-md-and-agents-md` reads both. The host reads this kind of file, but another file takes its place here.",
+      "evidence": [
+        {
+          "label": "proj/sub/AGENTS.md",
+          "path": "/home/me/proj/sub/AGENTS.md"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Merge the instructions into `proj/CLAUDE.md`, or remove the one you do not use"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/sub/AGENTS.md"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://code.claude.com/docs/en/memory"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "shadowed/claude-code/proj/sub/AGENTS.md"
+        ]
+      }
+    },
+    {
+      "id": "comments/cursor/proj/CLAUDE.md",
+      "severity": 3,
+      "kind": "comments",
+      "title": "Cursor sends the 1 HTML comment(s) of `proj/CLAUDE.md` to the model",
+      "subject": {
+        "kind": "file",
+        "label": "Cursor · proj/CLAUDE.md"
+      },
+      "detail": "24 bytes of `<!-- … -->` go into the prompt with the rest; Claude Code strips such comments, Cursor does not. HTML comments are sent to the model by this host.",
+      "evidence": [
+        {
+          "label": "proj/CLAUDE.md",
+          "path": "/home/me/proj/CLAUDE.md",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Keep maintainer notes outside the file, or accept that the model reads them"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/CLAUDE.md:3"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://cursor.com/docs/context/rules"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "comments/cursor/proj/CLAUDE.md"
+        ]
+      }
+    },
+    {
+      "id": "legacy/cursor/proj/.cursorrules",
+      "severity": 3,
+      "kind": "legacy",
+      "title": "`proj/.cursorrules` is a legacy name for Cursor",
+      "subject": {
+        "kind": "file",
+        "label": "Cursor · proj/.cursorrules"
+      },
+      "detail": "Cursor still reads it, but the documented name is now `.cursor/rules/<name>.mdc with alwaysApply: true`. An older name the host still reads, replaced by a newer one.",
+      "evidence": [
+        {
+          "label": "proj/.cursorrules",
+          "path": "/home/me/proj/.cursorrules"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "Move the instructions to `.cursor/rules/<name>.mdc with alwaysApply: true`"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/me/proj/.cursorrules"
+        },
+        {
+          "kind": "open-url",
+          "label": "Read the host's documentation",
+          "target": "https://cursor.com/docs/context/rules"
+        }
+      ],
+      "open": {
+        "app": "linstruct-app",
+        "args": [
+          "--select",
+          "legacy/cursor/proj/.cursorrules"
+        ]
+      }
+    }
+  ],
+  "notes": [
+    "17 instruction file(s) read across 1 project(s); 3 host(s) present",
+    "20 finding(s) for hosts not on this machine are shown in the app only",
+    "Codex CLI: `project_doc_max_bytes` = 2000 in ~/.codex/config.toml"
+  ],
+  "errors": []
+}
