@@ -35,4 +35,10 @@ for sheet in "$ROOT"/modules/*.toml; do
 done
 # the modules' README/copyright are theirs, not the full package's
 rm -rf "$BUNDLE/root/usr/share/doc"
+# One piece of software: in the full package the modules' menu entries are kept (window
+# icons, file associations) but hidden — the tower is the only entry in the menu and opens
+# each module itself ("Open in …"). The unit packages keep their entries.
+for d in "$BUNDLE"/root/usr/share/applications/*.desktop; do
+  grep -q '^NoDisplay=' "$d" || echo 'NoDisplay=true' >> "$d"
+done
 echo "== $(ls "$BUNDLE/root/usr/bin" | tr '\n' ' ')"

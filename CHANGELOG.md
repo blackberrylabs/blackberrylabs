@@ -1,6 +1,12 @@
 # Changelog
 
-## [0.3.0] — unreleased
+## [0.3.1] — 2026-10-17
+
+- Packaging only: in the full package the modules' menu entries are hidden (`NoDisplay`) —
+  one piece of software in the menu, the tower, which opens each module itself. The unit
+  packages and the tower alone keep their entries. Binaries unchanged.
+
+## [0.3.0] — 2026-10-17
 
 - Fifth module: **Billfold** 0.1.0 (`tally`) — the accounts the machine is wired to, the
   keys it holds, the tokens each host burned. Sheet `modules/billfold.toml`, fixture report
