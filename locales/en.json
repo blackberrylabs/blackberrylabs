@@ -25,6 +25,8 @@
   "module.findings": "Findings",
   "module.home": "Project page",
   "module.get": "Get it (.deb · .rpm · AppImage)",
+  "module.get_package": "Get {kind} {version}",
+  "module.all_versions": "All versions",
   "module.installed": "Installed · {version}",
   "module.not_installed": "Not installed",
   "module.no_report": "No report yet",

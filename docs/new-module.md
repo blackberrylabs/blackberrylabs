@@ -95,6 +95,7 @@ timeout_s = 60                       # 900 for a module that scans a disk
 schema = "bbl-report/1"
 home = "https://github.com/blackberrylabs/newname"
 releases = "https://github.com/blackberrylabs/newname/releases"
+latest = "0.1.0"   # the version the tower's "Get it" points at; bump it in the tower at each release
 ```
 
 The tower's tests (`crates/core/tests/tower.rs`) run on fake modules that print real

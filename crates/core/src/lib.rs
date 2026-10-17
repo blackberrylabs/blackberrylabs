@@ -16,6 +16,7 @@
 pub mod cache;
 pub mod dashboard;
 pub mod discover;
+pub mod packages;
 pub mod run;
 pub mod spec;
 

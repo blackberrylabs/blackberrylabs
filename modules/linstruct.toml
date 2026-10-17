@@ -13,3 +13,4 @@ timeout_s = 120
 schema = "bbl-report/1"
 home = "https://github.com/blackberrylabs/linstruct"
 releases = "https://github.com/blackberrylabs/linstruct/releases"
+latest = "0.1.0"

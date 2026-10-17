@@ -14,3 +14,4 @@ timeout_s = 900
 schema = "bbl-report/1"
 home = "https://github.com/blackberrylabs/cleanator"
 releases = "https://github.com/blackberrylabs/cleanator/releases"
+latest = "0.2.0"

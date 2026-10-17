@@ -13,3 +13,4 @@ timeout_s = 60
 schema = "bbl-report/1"
 home = "https://github.com/blackberrylabs/permitt"
 releases = "https://github.com/blackberrylabs/permitt/releases"
+latest = "0.2.0"

@@ -25,6 +25,8 @@
   "module.findings": "Constats",
   "module.home": "Page du projet",
   "module.get": "L'installer (.deb · .rpm · AppImage)",
+  "module.get_package": "Prendre le {kind} {version}",
+  "module.all_versions": "Toutes les versions",
   "module.installed": "Installé · {version}",
   "module.not_installed": "Non installé",
   "module.no_report": "Pas encore de rapport",

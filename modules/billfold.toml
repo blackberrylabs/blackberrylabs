@@ -13,3 +13,4 @@ timeout_s = 120
 schema = "bbl-report/1"
 home = "https://github.com/blackberrylabs/billfold"
 releases = "https://github.com/blackberrylabs/billfold/releases"
+latest = "0.1.0"

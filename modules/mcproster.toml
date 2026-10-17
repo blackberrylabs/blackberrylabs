@@ -13,3 +13,4 @@ timeout_s = 60
 schema = "bbl-report/1"
 home = "https://github.com/blackberrylabs/mcproster"
 releases = "https://github.com/blackberrylabs/mcproster/releases"
+latest = "0.2.1"

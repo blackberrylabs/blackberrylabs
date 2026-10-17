@@ -51,6 +51,9 @@ enum Message {
 }
 
 struct App {
+    /// The package this machine takes (`/etc/os-release`, read once); None sends to the
+    /// releases page.
+    package: Option<bbl_core::packages::Kind>,
     prefs: Prefs<()>,
     lang: Lang,
     strings: Strings,
@@ -81,6 +84,7 @@ impl App {
             prefs,
             lang,
             strings,
+            package: bbl_core::packages::detect(),
             dark,
             cache,
             dash,
@@ -428,7 +432,7 @@ impl App {
                 row![
                     text(s.t("module.not_installed", &[])).size(12).style(text::secondary),
                     horizontal_space(),
-                    small_button(s.t("module.get", &[]), Message::OpenUrl(if m.spec.releases.is_empty() { m.spec.home.clone() } else { m.spec.releases.clone() })),
+                    self.get_button(m),
                 ]
                 .align_y(Alignment::Center),
             );
@@ -488,6 +492,23 @@ impl App {
         };
         col = col.push(row![state_text, action].spacing(8).align_y(Alignment::Center));
         self.module_card(m, card(col.into()).height(Length::Fixed(140.0)))
+    }
+
+    fn releases_of(&self, m: &ModuleStatus) -> String {
+        if m.spec.releases.is_empty() { m.spec.home.clone() } else { m.spec.releases.clone() }
+    }
+
+    /// "Get it": the exact package for this machine when the sheet knows the latest version
+    /// (the browser downloads it; the tower itself never fetches), else the releases page.
+    fn get_button(&self, m: &ModuleStatus) -> Element<'_, Message> {
+        let s = &self.strings;
+        match self.package.and_then(|k| m.spec.package_url(k).map(|u| (k, u))) {
+            Some((k, url)) => small_button(
+                s.t("module.get_package", &[("kind", &k.to_string()), ("version", m.spec.latest.as_deref().unwrap_or(""))]),
+                Message::OpenUrl(url),
+            ),
+            None => small_button(s.t("module.get", &[]), Message::OpenUrl(self.releases_of(m))),
+        }
     }
 
     /// A module card is a filter: a click keeps you in the tower, on that module (decision
@@ -819,14 +840,8 @@ impl App {
                 ));
             }
         } else {
-            actions = actions.push(small_button(
-                s.t("module.get", &[]),
-                Message::OpenUrl(if m.spec.releases.is_empty() {
-                    m.spec.home.clone()
-                } else {
-                    m.spec.releases.clone()
-                }),
-            ));
+            actions = actions.push(self.get_button(m));
+            actions = actions.push(small_button(s.t("module.all_versions", &[]), Message::OpenUrl(self.releases_of(m))));
         }
         actions = actions.push(small_button(
             s.t("module.home", &[]),

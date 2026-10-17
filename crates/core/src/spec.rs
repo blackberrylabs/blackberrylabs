@@ -34,6 +34,29 @@ pub struct Spec {
     /// Where to take the module from when it is not installed; shown, never followed.
     #[serde(default)]
     pub releases: String,
+    /// The latest version the tower knows a release for, `x.y.z`: with the family's package
+    /// naming it gives the exact file of each release asset (see `packages`). Updated in the
+    /// tower when a module releases; until then the tower offers the previous version.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub latest: Option<String>,
+}
+
+impl Spec {
+    /// The release asset of `kind` for the latest known version, by the family's naming:
+    /// `<id>_<v>-1_amd64.deb`, `<id>-<v>-1.x86_64.rpm`, `<Name>-<v>-x86_64.AppImage`, under
+    /// `<releases>/download/v<v>/`. None without a known version or a releases page.
+    pub fn package_url(&self, kind: crate::packages::Kind) -> Option<String> {
+        let v = self.latest.as_deref()?;
+        if self.releases.is_empty() {
+            return None;
+        }
+        let file = match kind {
+            crate::packages::Kind::Deb => format!("{}_{v}-1_amd64.deb", self.id),
+            crate::packages::Kind::Rpm => format!("{}-{v}-1.x86_64.rpm", self.id),
+            crate::packages::Kind::AppImage => format!("{}-{v}-x86_64.AppImage", self.name),
+        };
+        Some(format!("{}/download/v{v}/{file}", self.releases.trim_end_matches('/')))
+    }
 }
 
 fn default_timeout() -> u64 {
