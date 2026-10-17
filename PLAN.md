@@ -13,6 +13,14 @@
 - [x] `bbl` : liste, `refresh`, `modules`, `--json`, `--min-severity`, `--module` — 2026-10-17
 - [x] Tests sur faux modules (les trois vrais rapports en fixtures) : module absent, rapport enregistre avec son age, R2 (rien hors `state/`), schema 2 et champs en plus, module en echec — 2026-10-17
 - [x] Passage reel dans le cloud avec les trois vrais binaires — 2026-10-17
-- [ ] Commit 1
+- [x] Commit 1 — 2026-10-17
 ## Etape 2. App (maquette validee avant le code)
+- [x] Maquette HTML (en marche + premier lancement), validee d'un mot — 2026-10-17
+- [x] `bbl-app` (iced, bbl-ui) : phrase, quatre gravites, cartes de modules, liste, detail, ouvrir dans le module ; rafraichissement en arriere-plan (T2) ; EN/FR ; clair/sombre — 2026-10-17
+- [x] Captures docs/screenshots (clair, sombre) — 2026-10-17
+- [ ] Commit 2
 ## Etape 3. Paquets, depot, release 0.1.0 — sur accord ; README d'organisation
+- [x] `packaging/build.sh`, `.desktop`, icone (radar + quatre gravites), metadonnees deb/rpm — 2026-10-17
+- [ ] Passage reel sur la machine d'Alexandre (les trois modules reconstruits avec `report`)
+- [ ] Depot `blackberrylabs/blackberrylabs`, release 0.1.0 — sur accord
+- [ ] README d'organisation (profil GitHub blackberrylabs)

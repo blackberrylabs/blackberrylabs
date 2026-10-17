@@ -17,6 +17,20 @@ The tower computes nothing. It launches the installed modules, reads their repor
 of findings sorted by severity — act now, review, good to know, information — and opens the
 module at the right place. A module that is not installed is shown with where to get it.
 
+## The app
+
+`bbl-app` opens on one screen: a sentence (*Your machine, AI side: 6 things to act on now,
+32 to review*), the four severities in words, the modules with their own figures and the
+age of their report, the findings of every module in one list, and for the selected one
+where it comes from, what you could do, and a button that opens the module right there.
+On start it shows the saved reports, runs every installed module again in the background
+and replaces each report when it is ready. A module that is not installed is shown with
+what it does and where to get it. English by default, French available; light and dark.
+
+Preferences (language, theme) live in `~/.config/blackberrylabs/settings.json`. For
+screenshots: `BBL_SELECT=module:finding-id` preselects a finding, `BBL_NO_REFRESH=1` skips
+the start-up refresh.
+
 ## Command line
 
 ```sh
@@ -43,8 +57,9 @@ limit, home page). The tower holds no code specific to a module.
 ## How it is built
 
 A Rust workspace: `crates/core` (module sheets, discovery on `PATH`, launch with a time
-limit, saved reports, assembly and sorting), `crates/cli` (`bbl`); the desktop app `bbl-app`
-comes next, on [`bbl-ui`](https://github.com/blackberrylabs/bbl-ui). `#![forbid(unsafe_code)]`.
+limit, saved reports, assembly and sorting), `crates/cli` (`bbl`), `crates/app` (`bbl-app`,
+iced, on [`bbl-ui`](https://github.com/blackberrylabs/bbl-ui)). `packaging/build.sh` builds
+the `.deb`, `.rpm` and AppImage into `dist/`. `#![forbid(unsafe_code)]`.
 The design brief, plan and journal are kept in French at the root; code, comments and
 documentation are in English.
 

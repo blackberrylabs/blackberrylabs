@@ -9,8 +9,9 @@ use serde::Serialize;
 
 use crate::cache::Cache;
 use crate::discover::which;
-use crate::run::{self, Run, RunError};
+use crate::run;
 use crate::spec::{Modules, Spec};
+pub use crate::run::{Run, RunError};
 
 /// Where a module's report comes from, or why there is none.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -80,28 +81,46 @@ impl Dashboard {
     /// Run one module now, save its report, and update its status. Not installed → the
     /// status says so; a failure keeps the previous report if there was one.
     pub fn refresh(&mut self, id: &str, cache: &Cache) -> Result<Run, RunError> {
+        let result = match self.launch(id) {
+            Ok((spec, cli)) => run::report(&spec, &cli),
+            Err(e) => Err(e),
+        };
+        self.apply(id, &result, cache);
+        result
+    }
+
+    /// What `refresh` would run: the module's sheet and the path of its command line. An
+    /// app runs this on a thread and feeds the result back through [`Dashboard::apply`].
+    pub fn launch(&mut self, id: &str) -> Result<(Spec, PathBuf), RunError> {
         let Some(m) = self.modules.iter_mut().find(|m| m.spec.id == id) else {
             return Err(RunError::Spawn(format!("unknown module {id:?}")));
         };
-        let Some(cli) = m.cli.clone() else {
-            m.state = ReportState::NotInstalled;
-            return Err(RunError::Spawn(format!("{} is not installed ({} not on PATH)", m.spec.name, m.spec.cli)));
-        };
-        let result = run::report(&m.spec, &cli);
-        match &result {
-            Ok(run) => {
-                if let Err(e) = cache.write(id, &run.json) {
-                    m.state = ReportState::Failed { error: e };
-                } else {
-                    m.state = ReportState::Fresh { elapsed_ms: run.elapsed.as_millis() as u64 };
-                }
-                m.report = Some(run.report.clone());
+        match m.cli.clone() {
+            Some(cli) => Ok((m.spec.clone(), cli)),
+            None => {
+                m.state = ReportState::NotInstalled;
+                Err(RunError::Spawn(format!("{} is not installed ({} not on PATH)", m.spec.name, m.spec.cli)))
             }
-            Err(e) => m.state = ReportState::Failed { error: e.to_string() },
+        }
+    }
+
+    /// Take a run's outcome into account: save the report, set the state, re-sort.
+    pub fn apply(&mut self, id: &str, result: &Result<Run, RunError>, cache: &Cache) {
+        if let Some(m) = self.modules.iter_mut().find(|m| m.spec.id == id) {
+            match result {
+                Ok(run) => {
+                    m.state = match cache.write(id, &run.json) {
+                        Ok(_) => ReportState::Fresh { elapsed_ms: run.elapsed.as_millis() as u64 },
+                        Err(e) => ReportState::Failed { error: e },
+                    };
+                    m.report = Some(run.report.clone());
+                }
+                Err(_) if m.state == ReportState::NotInstalled => {}
+                Err(e) => m.state = ReportState::Failed { error: e.to_string() },
+            }
         }
         let statuses = std::mem::take(&mut self.modules);
         *self = Dashboard::assemble(statuses);
-        result
     }
 
     /// Run every installed module, in family order.

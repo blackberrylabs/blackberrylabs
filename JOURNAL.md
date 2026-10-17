@@ -64,3 +64,25 @@ rapports en fixtures.
   Cleanator (commit 22 : une source qui n'est pas une URL devient une indication).
 - Un echec de rafraichissement n'est pas persiste : au prochain `bbl`, le module est « sans
   rapport » ou garde son ancien rapport. L'app montrera l'erreur en direct.
+
+## 2026-10-17 — maquette et app
+
+- Consigne d'Alexandre avant la maquette : « la tour doit etre comprehensible et intuitive,
+  pour les vibe codeurs comme pour les developpeurs ». C'est ce qui a dicte l'ordre de
+  l'ecran : une phrase d'abord (« Your machine, AI side: 6 things to act on now, 32 to
+  review »), les quatre gravites en mots avec leur definition sous le chiffre, les modules
+  avec ce qu'ils repondent en une phrase, la liste groupee par gravite, le detail en trois
+  questions (ce que ca veut dire / ou / ce que vous pourriez faire), et la phrase qui
+  rassure a cote du bouton « Open in … ». Rien d'invente : « ce que ca veut dire » est le
+  `detail` du module, omis quand il n'y en a pas. Maquette validee d'un mot (A1 : la phrase
+  remplace la carte « findings »).
+- App ecrite dans la foulee. Le coeur a gagne `launch` / `apply` pour que l'app lance un
+  module sur un fil et reinjecte le resultat ; `bbl` garde `refresh` synchrone. Verifie a
+  l'ecran dans le cloud : rapports enregistres affiches avec leur age, relance en
+  arriere-plan avec « Running… (report from 26 min ago shown) », remplacement a la fin ;
+  module absent en pointille avec « Get it » ; module trop vieux (le `cleanator-cli` 0.1.1
+  du cloud) affiche son erreur sur sa carte, sans bloquer les autres.
+- Icone : un radar (la tour) avec les quatre gravites en points, du centre vers l'exterieur.
+- Reste pour la release : un passage reel sur la machine d'Alexandre, qui suppose que les
+  trois modules y soient reconstruits avec `report` (leurs paquets installes sont les
+  anciens).

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=Blackberrylabs
+GenericName=AI tooling control tower
+GenericName[fr]=Tour de contrôle de l'outillage IA
+Comment=Everything your AI agents do to your machine, on one screen: the findings of Cleanator, MCProster and Permitt, most serious first. Read-only, like the tools behind it.
+Comment[fr]=Tout ce que vos agents IA font à votre machine, sur un écran : les constats de Cleanator, MCProster et Permitt, le plus grave en premier. Lecture seule, comme les outils derrière.
+Exec=bbl-app
+Icon=blackberrylabs
+Terminal=false
+Categories=Development;Utility;System;
+Keywords=ai agents;mcp;permissions;disk;claude code;cursor;codex;control tower;
+StartupWMClass=bbl-app
