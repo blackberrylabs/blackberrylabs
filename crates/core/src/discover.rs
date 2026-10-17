@@ -1,10 +1,21 @@
-//! Is a module installed? Its binaries are looked up on `PATH`, nothing else is read.
+//! Is a module installed? Its binaries are looked up next to the tower's own executable
+//! first (the full package ships the modules beside `bbl-app`; inside an AppImage that
+//! directory is not on `PATH`), then on `PATH`. Nothing else is read.
 
 use std::path::{Path, PathBuf};
 
-/// The directories of `PATH`, as the shell would search them.
+/// The directory of the tower's own binary, then the directories of `PATH` as the shell
+/// would search them.
 pub fn path_dirs() -> Vec<PathBuf> {
-    std::env::var_os("PATH").map(|p| std::env::split_paths(&p).collect()).unwrap_or_default()
+    let mut dirs: Vec<PathBuf> = std::env::current_exe()
+        .ok()
+        .and_then(|e| e.parent().map(Path::to_path_buf))
+        .into_iter()
+        .collect();
+    if let Some(p) = std::env::var_os("PATH") {
+        dirs.extend(std::env::split_paths(&p));
+    }
+    dirs
 }
 
 /// The first `dir/name` that exists and is a regular file, in `dirs` order.

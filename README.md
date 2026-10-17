@@ -18,6 +18,11 @@ then pick the modules you need: it works with any subset and shows the others as
 | [Linstruct](https://github.com/blackberrylabs/linstruct) | lint | Your AI instruction files (CLAUDE.md, AGENTS.md, .cursor/rules…) as each agent will actually read them, and what it silently drops |
 | [Billfold](https://github.com/blackberrylabs/billfold) | tally | The accounts the machine is wired to, the keys it holds, the tokens each host burned |
 
+**Get it**: the [full package](https://github.com/blackberrylabs/blackberrylabs/releases)
+(`blackberrylabs-full`, the tower and every module, one install) or the tower alone, which
+shows the modules you do not have and opens the right package of each for your system.
+`.deb`, `.rpm` and AppImage, x86_64.
+
 The tower computes nothing. It launches the installed modules, reads their reports
 ([`bbl-report/1`](https://github.com/blackberrylabs/bbl-report)), merges them into one list
 of findings sorted by severity — act now, review, good to know, information — and opens the

@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # Build the release binaries and the three Linux packages into dist/.
 #
-#   packaging/build.sh            # .deb + .rpm + AppImage
+#   packaging/build.sh            # the tower alone: .deb + .rpm + AppImage
 #   packaging/build.sh deb rpm    # a subset
+#   packaging/build.sh full       # the full package: the tower and every module, in the
+#                                 # three formats (packaging/bundle.sh gathers the modules)
 #
 # Needs: cargo, cargo-deb, cargo-generate-rpm (cargo install cargo-deb cargo-generate-rpm),
 # and for the AppImage either `appimagetool` on PATH or network access to fetch it once
@@ -19,6 +21,9 @@ mkdir -p "$DIST" "$TOOLS"
 
 targets=("$@")
 [ ${#targets[@]} -eq 0 ] && targets=(deb rpm appimage)
+[ "${targets[*]}" = "full" ] && targets=(full-deb full-rpm full-appimage)
+[ "${targets[*]}" = "all" ] && targets=(deb rpm appimage full-deb full-rpm full-appimage)
+case " ${targets[*]} " in *" full-"*) packaging/bundle.sh ;; esac
 
 echo "== blackberrylabs $VERSION ($ARCH): building release binaries"
 cargo build --release --workspace
@@ -36,8 +41,18 @@ for t in "${targets[@]}"; do
       cargo generate-rpm -p crates/app
       cp target/generate-rpm/blackberrylabs-"$VERSION"-*.rpm "$DIST/"
       ;;
-    appimage)
-      echo "== AppImage"
+    full-deb)
+      echo "== .deb (full)"
+      cargo deb -p blackberrylabs --no-build --quiet --variant full
+      cp target/debian/blackberrylabs-full_"$VERSION"-*.deb "$DIST/"
+      ;;
+    full-rpm)
+      echo "== .rpm (full)"
+      cargo generate-rpm -p crates/app --variant full
+      cp target/generate-rpm/blackberrylabs-full-"$VERSION"-*.rpm "$DIST/"
+      ;;
+    appimage | full-appimage)
+      echo "== AppImage ($t)"
       TOOL="$(command -v appimagetool || true)"
       if [ -z "$TOOL" ]; then
         TOOL="$TOOLS/appimagetool-$ARCH"
@@ -47,7 +62,8 @@ for t in "${targets[@]}"; do
           chmod +x "$TOOL"
         fi
       fi
-      APPDIR="$ROOT/target/appimage/Blackberrylabs.AppDir"
+      SUFFIX=""; [ "$t" = full-appimage ] && SUFFIX="-full"
+      APPDIR="$ROOT/target/appimage/Blackberrylabs$SUFFIX.AppDir"
       rm -rf "$APPDIR"
       mkdir -p "$APPDIR/usr/bin" "$APPDIR/usr/share/applications" \
         "$APPDIR/usr/share/icons/hicolor/256x256/apps" "$APPDIR/usr/share/icons/hicolor/scalable/apps"
@@ -58,14 +74,18 @@ for t in "${targets[@]}"; do
       cp assets/icon.svg "$APPDIR/usr/share/icons/hicolor/scalable/apps/blackberrylabs.svg"
       cp assets/icon-256.png "$APPDIR/blackberrylabs.png"
       cp assets/icon-256.png "$APPDIR/.DirIcon"
+      if [ "$t" = full-appimage ]; then
+        # the modules' binaries beside bbl-app: the tower looks next to itself first
+        cp -r "$ROOT/packaging/.bundle/root/usr/." "$APPDIR/usr/"
+      fi
       ln -sf usr/bin/bbl-app "$APPDIR/AppRun"
       # appimagetool is itself an AppImage; extract-and-run avoids needing FUSE.
       APPIMAGE_EXTRACT_AND_RUN=1 ARCH="$ARCH" "$TOOL" --no-appstream \
-        "$APPDIR" "$DIST/Blackberrylabs-$VERSION-$ARCH.AppImage" 2>&1 | grep -v '^$' | tail -3
-      chmod +x "$DIST/Blackberrylabs-$VERSION-$ARCH.AppImage"
+        "$APPDIR" "$DIST/Blackberrylabs$SUFFIX-$VERSION-$ARCH.AppImage" 2>&1 | grep -v '^$' | tail -3
+      chmod +x "$DIST/Blackberrylabs$SUFFIX-$VERSION-$ARCH.AppImage"
       ;;
     *)
-      echo "unknown target: $t (deb, rpm, appimage)" >&2
+      echo "unknown target: $t (deb, rpm, appimage, full-deb, full-rpm, full-appimage, full, all)" >&2
       exit 2
       ;;
   esac
