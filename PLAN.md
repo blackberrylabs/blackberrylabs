@@ -22,9 +22,19 @@
 ## Etape 3. Paquets, depot, release 0.1.0 — sur accord ; README d'organisation
 - [x] `packaging/build.sh`, `.desktop`, icone (radar + quatre gravites), metadonnees deb/rpm — 2026-10-17
 - [x] Passage reel sur la machine d'Alexandre (binaires reconstruits dans ~/.local/bin) : Cleanator 22 constats en 5,1 s, MCProster 1, Permitt 12 ; 0 a agir, 17 a regarder, 7 bon a savoir, 11 informations — 2026-10-17
-- [ ] Depot `blackberrylabs/blackberrylabs`, release 0.1.0 — accord du 2026-10-17 ; les trois modules publies avant (Permitt 0.2.0, MCProster 0.2.1, Cleanator 0.2.0, verifies depuis le cloud) : commit 3, build.sh, push, tag, release
-- [ ] README d'organisation (profil GitHub blackberrylabs)
+- [x] Depot `blackberrylabs/blackberrylabs`, tag v0.1.0, release avec les trois paquets + SHA256SUMS ; verifiee depuis le cloud : somme OK, `bbl 0.1.0`, le `.deb` publie lit les trois `.deb` publies des modules — 2026-10-17
+- [x] Les trois modules publies avant : Permitt 0.2.0, MCProster 0.2.1, Cleanator 0.2.0 — 2026-10-17
+- [x] README d'organisation publie dans `blackberrylabs/.github` (`profile/README.md`), visible sur github.com/blackberrylabs — 2026-10-17
+
+**Etape 3 close le 2026-10-17. Blackberrylabs 0.1.0 est publiee, avec ses trois modules.**
+
+## Etape 4. Integration facile (decision T5, 2026-10-17)
+- [x] `docs/new-module.md` : template, contrat, gravites et mappings existants, `--select`, fiche, avant la release — 2026-10-17
+- [x] Gabarit `blackberrylabs/template` (`Logiciels/Template`) : core/cli/app, promesses testees, `report` conforme, `rename.sh` — 2026-10-17
+- [x] Mise a jour de toute la doc de la famille : README des trois modules (« Part of Blackberrylabs », statut), CLAUDE.md et CONTRIBUTING (fondations, mapping), README des trois fondations, CONVENTIONS et PROJETS 00_moi — 2026-10-17
+- [ ] Commits et pushes (docs seulement) — sur accord
 
 ## Apres 0.1.0 (idees, non engagees)
+- Lire aussi des fiches deposees dans `~/.config/blackberrylabs/modules/` (modules tiers), en plus des fiches embarquees.
 - La tour comme porte d'entree de la famille (idee d'Alexandre, 17/10) : « Get it » ouvre directement le bon paquet de la bonne release (format detecte via `/etc/os-release`), le navigateur telecharge ; R3 intact. README d'organisation qui presente la tour en premier.
 - Verifier l'installation d'un module apres « Get it » (relecture du PATH a la demande).

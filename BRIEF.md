@@ -184,3 +184,8 @@ jour).
 - **T3 2026-10-16** — Quatre niveaux de gravite communs, mappes par chaque module.
 - **T4 2026-10-16** — `bbl-report` est une crate a part (ni dans `hostrules`, ni dans
   `bbl-ui`) : ce n'est ni lecture d'hotes ni interface, c'est le contrat.
+- **T5 2026-10-17** — « S'integre facilement » s'ecrit : un gabarit de depot
+  (`blackberrylabs/template`, qui parle deja le contrat et garde deja les promesses) et une
+  page `docs/new-module.md` dans la tour (les trois obligations d'un module : `report`,
+  mapping des gravites ecrit dans le CHANGELOG, `--select` ; puis la fiche). Decide avec
+  Alexandre apres la 0.1.0 (« Oui, pour ta recommandation »).

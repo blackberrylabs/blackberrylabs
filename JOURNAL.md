@@ -108,3 +108,34 @@ tour elle-meme : R3 (aucune sortie reseau) est une des promesses qui rendent la 
 credible. Piste pour 0.2, a trancher : la tour ouvre directement le bon fichier de la bonne
 release (deb / rpm / AppImage selon `/etc/os-release`), le navigateur telecharge — un clic,
 zero reseau dans la tour. Et le README d'organisation presente la tour en premier.
+
+## 2026-10-17 — 0.1.0 publiee, la famille complete
+
+- Quatre releases dans la journee, dans l'ordre decide : Permitt 0.2.0, MCProster 0.2.1,
+  Cleanator 0.2.0, puis Blackberrylabs 0.1.0. Chacune verifiee depuis le cloud (somme,
+  version, `report` conforme) ; pour la tour, le `.deb` publie a lu les trois `.deb` publies
+  des modules : la chaine complete tient sans rien de local.
+- Deux accrocs, tous deux de mon fait : `.gitignore` sans `dist/` ni `packaging/.tools/`
+  (un commit local a embarque les paquets ; defait avant le push, corrige par le commit 4) ;
+  et le verrou `.git/index.lock` que le pont laisse derriere lui, a enlever avant tout git.
+- `gh` installe sur la machine d'Alexandre a cette occasion : les releases passent par
+  `gh release create` avec les notes de `00_cadrage/`.
+- README d'organisation ecrit (tour en premier, modules, promesses, fondations) ; reste a
+  le publier dans `blackberrylabs/.github`.
+
+## 2026-10-17 — rendre l'integration facile, pas seulement possible
+
+- Question d'Alexandre : « le dossier Blackberrylabs est bien structure pour des modules
+  supplementaires qui s'integrent facilement ? ». Reponse honnete : oui pour l'architecture
+  (trois obligations, aucune ligne dans la tour, R5 verifiee par trois modules differents),
+  deux reserves — les fiches embarquees demandent une release de la tour, et « facile »
+  n'etait ecrit nulle part : pas de gabarit, pas de marche a suivre.
+- Decision T5. Gabarit `blackberrylabs/template` : un workspace qui compile et dont les
+  tests passent avant qu'on y touche, et qui parle deja le contrat (le `scan` est un
+  placeholder qui le dit). `rename.sh` verifie sur une copie : renomme, recompile, tests
+  verts. `docs/new-module.md` : la page qui tient les trois obligations, la fiche, et ce
+  qu'on fait avant une release (module d'abord, tour ensuite).
+- Dans la foulee, toute la doc de la famille relue : les trois modules disent qu'ils sont
+  des modules et pointent vers la tour ; Permitt affichait encore « Status 0.1.0 » (oubli de
+  la release du matin) ; les CLAUDE.md citent les trois fondations et le mapping ; les
+  CONTRIBUTING disent qu'un nouveau constat a sa place sur les quatre gravites.

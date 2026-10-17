@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+- `docs/new-module.md`: how a module joins the family, with the module template
+  (`blackberrylabs/template`).
+
 ## [0.1.0] — 2026-10-17
 
 First release of the control tower, with three modules that speak the contract: Cleanator

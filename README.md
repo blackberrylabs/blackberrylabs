@@ -50,9 +50,11 @@ runs is each module's own `report`. Reports are saved by the tower under
 
 ## Adding a module
 
-A module is a binary that answers `<module> report` with a `bbl-report/1` document, plus
-one declarative sheet in `modules/<id>.toml` (name, verb, binaries, report arguments, time
-limit, home page). The tower holds no code specific to a module.
+A module is a binary that answers `<module> report` with a `bbl-report/1` document, maps
+its findings onto the four severities, accepts `--select` in its app — plus one declarative
+sheet in `modules/<id>.toml`. The tower holds no code specific to a module. Start from the
+[module template](https://github.com/blackberrylabs/template); the whole procedure is in
+[`docs/new-module.md`](docs/new-module.md).
 
 ## How it is built
 
