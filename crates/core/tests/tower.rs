@@ -68,7 +68,7 @@ fn an_absent_module_is_shown_and_saved_reports_are_read() {
     let modules = Modules::embedded();
     // Nothing saved yet.
     let d = Dashboard::from_saved(&modules, &cache, std::slice::from_ref(&w.bin));
-    assert_eq!(d.modules.len(), 4);
+    assert_eq!(d.modules.len(), 5);
     assert_eq!(d.module("linstruct").unwrap().state, ReportState::NotInstalled);
     assert_eq!(d.module("cleanator").unwrap().state, ReportState::NotInstalled);
     assert!(!d.module("cleanator").unwrap().installed);
@@ -177,7 +177,7 @@ fn a_failing_module_is_reported_not_crashed() {
 
 #[test]
 fn the_real_reports_conform_and_open_their_module() {
-    for (name, app) in [("cleanator.json", "cleanator"), ("linstruct.json", "linstruct-app"), ("mcproster.json", "mcproster-app"), ("permitt.json", "permitt-app")] {
+    for (name, app) in [("billfold.json", "billfold-app"), ("cleanator.json", "cleanator"), ("linstruct.json", "linstruct-app"), ("mcproster.json", "mcproster-app"), ("permitt.json", "permitt-app")] {
         let r = bbl_report::conformance::check(&fixture(name)).unwrap_or_else(|e| panic!("{name}: {e:?}"));
         assert_eq!(r.module.app.as_deref(), Some(app));
         for f in r.findings.iter().filter(|f| f.open.is_some()) {

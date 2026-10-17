@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0] — unreleased
+
+- Fifth module: **Billfold** 0.1.0 (`tally`) — the accounts the machine is wired to, the
+  keys it holds, the tokens each host burned. Sheet `modules/billfold.toml`, fixture report
+  in the tests (from Billfold's own fake home, no real machine data).
+- A click on a module keeps you in the tower, filtered on it, with its figures and findings
+  in the pane; its own app opens only from an explicit *Open in …* button (decision T6:
+  "one tool, not a launcher").
+- README: the family sentence, the five modules, one module alone or several with the tower;
+  `packaging/github_meta.sh` sets the descriptions, topics and homepages of every repository
+  of the family from one file.
+
 ## [0.2.0] — 2026-10-17
 
 - Fourth module: **Linstruct** 0.1.0 (`lint`) — your AI instruction files (CLAUDE.md,

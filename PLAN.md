@@ -34,6 +34,31 @@
 - [x] Mise a jour de toute la doc de la famille : README des trois modules (« Part of Blackberrylabs », statut), CLAUDE.md et CONTRIBUTING (fondations, mapping), README des trois fondations, CONVENTIONS et PROJETS 00_moi — 2026-10-17
 - [ ] Commits et pushes (docs seulement) — sur accord
 
+## Etape 5. Tour 0.3 — « un logiciel, pas un lanceur » (decision T6, 2026-10-17)
+
+Constat d'Alexandre au premier usage : un clic sur un module ouvre l'application du module
+dans une autre fenetre ; « on a l'impression d'avoir un logiciel, mais il en ouvre un
+autre ». Attendu : rester dans la tour, filtree sur le module — pas l'ecran complet du
+module non plus.
+
+- [ ] Un clic sur la carte d'un module filtre la tour sur ce module et montre son resume
+      dans le volet : les quatre chiffres, l'age du dernier rapport, ses constats.
+- [ ] L'ouverture de l'application du module devient un bouton secondaire, nomme sans
+      ambiguite : « Open in <Module> ↗ » (fenetre separee) ; « Get it » inchange pour un
+      module absent ; « Refresh » reste dans la tour (relance en arriere-plan).
+- [ ] Les cinq modules presents dans les fiches embarquees (Billfold ajoute : 0.1.0 publie
+      le 2026-10-17 ; `report` conforme ; tester sur la machine d'Alexandre).
+- [ ] Coherence publique de la famille (audit SEO du 2026-10-17, `Logiciels/audit.md`) :
+      phrase de famille validee — « Read-only tools that show what AI coding agents do to
+      your machine — and one screen that gathers them. » — portee par la description
+      d'organisation, le README de la tour et la section « Part of Blackberrylabs » de
+      chaque module ; descriptions et topics par `gh repo edit` depuis un fichier du gabarit
+      (`packaging/github.toml`) et une ligne du rituel de release ; capture en tete de
+      chaque README ; Billfold dans les deux hubs ; release 0.2.0 de la tour nettoyee des
+      assets 0.1.0.
+- [ ] Ecarte : Discussions auto-posees, wiki, une page GitHub Pages par depot, crates.io
+      pour bbl-ui et bbl-report (bbl-hostrules seule a du sens, plus tard).
+
 ## Apres 0.1.0 (idees, non engagees)
 - Lire aussi des fiches deposees dans `~/.config/blackberrylabs/modules/` (modules tiers), en plus des fiches embarquees.
 - La tour comme porte d'entree de la famille (idee d'Alexandre, 17/10) : « Get it » ouvre directement le bon paquet de la bonne release (format detecte via `/etc/os-release`), le navigateur telecharge ; R3 intact. README d'organisation qui presente la tour en premier.

@@ -186,7 +186,14 @@ impl App {
                 self.remember();
             }
             Message::Search(s) => self.search = s,
-            Message::FilterModule(m) => self.module_filter = m,
+            Message::FilterModule(m) => {
+                if let (Some(m), Some((sm, _))) = (&m, &self.selected) {
+                    if sm != m {
+                        self.selected = None;
+                    }
+                }
+                self.module_filter = m;
+            }
             Message::FilterSeverity(s) => {
                 self.severity_filter = if self.severity_filter == Some(s) { None } else { Some(s) };
                 if s == Severity::Info && self.severity_filter.is_some() {
@@ -414,7 +421,7 @@ impl App {
         if m.installed {
             if let Some(app) = &m.spec.app {
                 if m.app.is_some() {
-                    head = head.push(small_button(s.t("module.open", &[]), Message::OpenModule(app.clone(), vec![])));
+                    head = head.push(small_button(s.t("module.open_in", &[("module", &m.spec.name)]), Message::OpenModule(app.clone(), vec![])));
                 }
             }
         }
@@ -430,7 +437,7 @@ impl App {
                 ]
                 .align_y(Alignment::Center),
             );
-            return card(col.into()).width(Length::Fill).height(Length::Fixed(140.0)).style(dashed).into();
+            return self.module_card(m, card(col.into()).height(Length::Fixed(140.0)).style(dashed));
         }
         let mut col = column![head, text(m.spec.tagline.clone()).size(12).style(text::secondary)].spacing(3);
         // Figures, with the module's tones.
@@ -485,7 +492,26 @@ impl App {
             small_button(s.t("refresh.one", &[]), Message::Refresh(m.spec.id.clone()))
         };
         col = col.push(row![state_text, action].spacing(8).align_y(Alignment::Center));
-        card(col.into()).width(Length::Fill).height(Length::Fixed(140.0)).into()
+        self.module_card(m, card(col.into()).height(Length::Fixed(140.0)))
+    }
+
+    /// A module card is a filter: a click keeps you in the tower, on that module (decision
+    /// T6); a second click lifts the filter. The chosen card is outlined.
+    fn module_card<'a>(
+        &self,
+        m: &ModuleStatus,
+        c: container::Container<'a, Message>,
+    ) -> Element<'a, Message> {
+        let chosen = self.module_filter.as_deref() == Some(&m.spec.id);
+        let c = if chosen { c.style(chosen_card) } else { c };
+        let next = if chosen {
+            None
+        } else {
+            Some(m.spec.id.clone())
+        };
+        mouse_area(c.width(Length::Fill))
+            .on_press(Message::FilterModule(next))
+            .into()
     }
 
     fn view_list(&self) -> Element<'_, Message> {
@@ -603,9 +629,13 @@ impl App {
     }
 
     fn view_detail(&self) -> Element<'_, Message> {
-        let content: Element<'_, Message> = match self.selected_line() {
-            Some(l) => self.view_finding(l, &l.finding),
-            None => self.view_about(),
+        let content: Element<'_, Message> = match (self.selected_line(), &self.module_filter) {
+            (Some(l), _) => self.view_finding(l, &l.finding),
+            (None, Some(id)) => match self.dash.module(id) {
+                Some(m) => self.view_module_detail(m),
+                None => self.view_about(),
+            },
+            (None, None) => self.view_about(),
         };
         card(scrollable(container(content).padding(iced::Padding { right: 14.0, ..Default::default() })).height(Length::Fill).into())
             .width(Length::FillPortion(4))
@@ -694,6 +724,124 @@ impl App {
         col.into()
     }
 
+    /// The module in the pane: what it is, its figures, the state of its report, its
+    /// findings by severity, and the two ways out of the tower (its app, its releases).
+    fn view_module_detail(&self, m: &ModuleStatus) -> Element<'_, Message> {
+        let s = &self.strings;
+        let mut col = column![
+            text(m.spec.name.clone()).size(16),
+            text(m.spec.tagline.clone()).size(12).style(text::secondary),
+        ]
+        .spacing(4);
+        let what = if m.spec.description.is_empty() {
+            m.spec.tagline.clone()
+        } else {
+            m.spec.description.clone()
+        };
+        col = col.push(Space::with_height(4));
+        col = col.push(text(what).size(13));
+        if let Some(r) = &m.report {
+            col = col.push(Space::with_height(8));
+            col = col.push(
+                text(s.t("module.figures", &[]).to_uppercase())
+                    .size(11)
+                    .style(text::secondary),
+            );
+            for f in &r.summary {
+                let value: Element<'_, Message> = match self.tone_color(f.tone) {
+                    Some(c) => text(f.value.clone()).size(13).color(c).into(),
+                    None => text(f.value.clone()).size(13).into(),
+                };
+                col = col.push(
+                    row![
+                        text(f.label.clone())
+                            .size(12)
+                            .style(text::secondary)
+                            .width(Length::FillPortion(2)),
+                        value
+                    ]
+                    .spacing(8),
+                );
+            }
+            col = col.push(Space::with_height(8));
+            col = col.push(
+                text(s.t("module.findings", &[]).to_uppercase())
+                    .size(11)
+                    .style(text::secondary),
+            );
+            for sev in Severity::ALL {
+                let n = self
+                    .dash
+                    .lines
+                    .iter()
+                    .filter(|l| l.module == m.spec.id && l.finding.severity == sev)
+                    .count();
+                if n > 0 {
+                    col = col.push(
+                        row![
+                            swatch(self.sev_color(sev), 10),
+                            text(s.t(&format!("sev.{}", sev.number()), &[])).size(12),
+                            horizontal_space(),
+                            text(n.to_string()).size(12)
+                        ]
+                        .spacing(6)
+                        .align_y(Alignment::Center),
+                    );
+                }
+            }
+        }
+        let version = m
+            .report
+            .as_ref()
+            .map(|r| r.module.version.clone())
+            .unwrap_or_default();
+        let state = match &m.state {
+            ReportState::Fresh { .. } => s.t("module.fresh", &[("version", &version)]),
+            ReportState::Saved { age_s } => s.t(
+                "module.report_age",
+                &[("age", &self.age(*age_s)), ("version", &version)],
+            ),
+            ReportState::NoReport => s.t("module.no_report", &[]),
+            ReportState::NotInstalled => s.t("module.not_installed", &[]),
+            ReportState::Failed { error } => {
+                s.t("module.failed", &[("error", &shorten(error, 120))])
+            }
+        };
+        col = col.push(Space::with_height(8));
+        col = col.push(text(state).size(12).style(text::secondary));
+        let mut actions = row![].spacing(8);
+        if m.installed {
+            if let (Some(app), true) = (&m.spec.app, m.app.is_some()) {
+                actions = actions.push(small_button(
+                    s.t("module.open_in", &[("module", &m.spec.name)]),
+                    Message::OpenModule(app.clone(), vec![]),
+                ));
+            }
+            if m.cli.is_some() && !self.running.contains(&m.spec.id) {
+                actions = actions.push(small_button(
+                    s.t("refresh.one", &[]),
+                    Message::Refresh(m.spec.id.clone()),
+                ));
+            }
+        } else {
+            actions = actions.push(small_button(
+                s.t("module.get", &[]),
+                Message::OpenUrl(if m.spec.releases.is_empty() {
+                    m.spec.home.clone()
+                } else {
+                    m.spec.releases.clone()
+                }),
+            ));
+        }
+        actions = actions.push(small_button(
+            s.t("module.home", &[]),
+            Message::OpenUrl(m.spec.home.clone()),
+        ));
+        col = col.push(Space::with_height(4));
+        col = col.push(actions);
+        col.into()
+    }
+
     fn view_about(&self) -> Element<'_, Message> {
         let s = &self.strings;
         let mut col = column![
@@ -738,6 +886,20 @@ fn subject_slug(k: SubjectKind) -> &'static str {
         SubjectKind::File => "file",
         SubjectKind::Setting => "setting",
         SubjectKind::Other => "other",
+    }
+}
+
+/// The module the tower is filtered on: the card with the accent border.
+fn chosen_card(theme: &Theme) -> container::Style {
+    let p = theme.extended_palette();
+    container::Style {
+        background: Some(Background::Color(p.background.weak.color)),
+        border: Border {
+            radius: 10.0.into(),
+            width: 1.5,
+            color: p.primary.base.color,
+        },
+        ..Default::default()
     }
 }
 

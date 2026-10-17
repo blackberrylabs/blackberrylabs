@@ -1,24 +1,29 @@
 # Blackberrylabs
 
-**Everything your AI agents do to your machine, on one screen. Read-only, like the tools
-behind it.**
+**Read-only tools that show what AI coding agents do to your machine — and one screen that
+gathers them.**
 
-Blackberrylabs is the control tower of a small family of desktop tools for developers who
-run AI on Linux:
+![Blackberrylabs — the findings of every module in one list, most serious first](docs/screenshots/light.png)
+
+Blackberrylabs is a small family of desktop tools for developers and vibe coders who run AI
+on Linux. Each tool answers one question about your machine and never acts in your place.
+**Want one of them? Install it, it is complete on its own. Want several? Install the tower,
+then pick the modules you need: it works with any subset and shows the others as available.**
 
 | Module | Verb | What it answers |
 |---|---|---|
-| [Cleanator](https://github.com/blackberrylabs/cleanator) | clean | What AI tooling left on the disk, and what could go |
-| [MCProster](https://github.com/blackberrylabs/mcproster) | inventory | Every MCP server declared on the machine, once, with what is wrong |
 | [Permitt](https://github.com/blackberrylabs/permitt) | inspect | What each AI assistant may do without asking, and which setting says so |
+| [MCProster](https://github.com/blackberrylabs/mcproster) | inventory | Every MCP server declared on the machine, once, with what is wrong |
+| [Cleanator](https://github.com/blackberrylabs/cleanator) | clean | What AI tooling left on the disk, and what could go |
 | [Linstruct](https://github.com/blackberrylabs/linstruct) | lint | Your AI instruction files (CLAUDE.md, AGENTS.md, .cursor/rules…) as each agent will actually read them, and what it silently drops |
+| [Billfold](https://github.com/blackberrylabs/billfold) | tally | The accounts the machine is wired to, the keys it holds, the tokens each host burned |
 
 The tower computes nothing. It launches the installed modules, reads their reports
 ([`bbl-report/1`](https://github.com/blackberrylabs/bbl-report)), merges them into one list
 of findings sorted by severity — act now, review, good to know, information — and opens the
 module at the right place. A module that is not installed is shown with where to get it.
 
-## The app
+## What is wrong on my machine, AI side?
 
 `bbl-app` opens on one screen: a sentence (*Your machine, AI side: 6 things to act on now,
 32 to review*), the four severities in words, the modules with their own figures and the

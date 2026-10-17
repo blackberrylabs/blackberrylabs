@@ -52,6 +52,7 @@ pub struct Modules {
 
 /// The sheets shipped with this version of the tower.
 pub const EMBEDDED: &[(&str, &str)] = &[
+    ("billfold.toml", include_str!("../../../modules/billfold.toml")),
     ("cleanator.toml", include_str!("../../../modules/cleanator.toml")),
     ("linstruct.toml", include_str!("../../../modules/linstruct.toml")),
     ("mcproster.toml", include_str!("../../../modules/mcproster.toml")),

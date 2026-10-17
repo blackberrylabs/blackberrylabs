@@ -1,0 +1,728 @@
+{
+  "schema": "bbl-report/1",
+  "module": {
+    "id": "billfold",
+    "name": "Billfold",
+    "version": "0.1.0",
+    "verb": "tally",
+    "tagline": "What this machine spends on AI — the accounts it is wired to, the keys it holds, the tokens it burned.",
+    "app": "billfold-app",
+    "cli": "billfold",
+    "home": "https://github.com/blackberrylabs/billfold"
+  },
+  "generated_at": "2026-10-17T16:05:31Z",
+  "duration_ms": 169,
+  "summary": [
+    {
+      "key": "keys",
+      "label": "Keys found",
+      "value": "8",
+      "tone": "alert"
+    },
+    {
+      "key": "tokens_30d",
+      "label": "Tokens since 2026-09-17",
+      "value": "1.2 M",
+      "tone": "neutral"
+    },
+    {
+      "key": "usd_30d",
+      "label": "API-equivalent, pay-as-you-go (2026-10-17)",
+      "value": "$0.86",
+      "tone": "neutral"
+    },
+    {
+      "key": "findings",
+      "label": "Findings",
+      "value": "17",
+      "tone": "alert"
+    }
+  ],
+  "findings": [
+    {
+      "id": "tracked-secret/groq/proj/.env:1",
+      "severity": 1,
+      "kind": "tracked-secret",
+      "title": "Groq key in clear in a git-tracked file",
+      "subject": {
+        "kind": "other",
+        "label": "Groq · GROQ_API_KEY · ~/proj/.env"
+      },
+      "detail": "`GROQ_API_KEY` = gsk_…MNOP at ~/proj/.env line 1 (mode 644); git: tracked",
+      "evidence": [
+        {
+          "label": "/home/someone/proj/.env",
+          "path": "/home/someone/proj/.env",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "remove the key from `proj/.env`, add the file to `.gitignore`, rotate the key at Groq"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/someone/proj/.env:1"
+        },
+        {
+          "kind": "open-url",
+          "label": "Provider's usage page",
+          "target": "https://console.groq.com/settings/usage"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://console.groq.com/docs/quickstart"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "tracked-secret/groq/proj/.env:1"
+        ]
+      }
+    },
+    {
+      "id": "clear-secret/deepseek/proj/.env.local:1",
+      "severity": 2,
+      "kind": "clear-secret",
+      "title": "DeepSeek key in clear",
+      "subject": {
+        "kind": "other",
+        "label": "DeepSeek · DEEPSEEK_API_KEY · ~/proj/.env.local"
+      },
+      "detail": "`DEEPSEEK_API_KEY` = sk-…cdef at ~/proj/.env.local line 1 (mode 644); git: ignored",
+      "evidence": [
+        {
+          "label": "/home/someone/proj/.env.local",
+          "path": "/home/someone/proj/.env.local",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "the file is owner-only; keep it out of backups and shared folders, rotate the key when in doubt"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/someone/proj/.env.local:1"
+        },
+        {
+          "kind": "open-url",
+          "label": "Provider's usage page",
+          "target": "https://platform.deepseek.com/usage"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://api-docs.deepseek.com/"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "clear-secret/deepseek/proj/.env.local:1"
+        ]
+      }
+    },
+    {
+      "id": "clear-secret/groq/.bashrc:3",
+      "severity": 2,
+      "kind": "clear-secret",
+      "title": "Groq key in clear",
+      "subject": {
+        "kind": "other",
+        "label": "Groq · GROQ_API_KEY · ~/.bashrc"
+      },
+      "detail": "`GROQ_API_KEY` = gsk_…MNOP at ~/.bashrc line 3 (mode 644); git: not in a repository",
+      "evidence": [
+        {
+          "label": "/home/someone/.bashrc",
+          "path": "/home/someone/.bashrc",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "prefer a secrets manager or the host's own login; a key in a start-up file is inherited by every process"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/someone/.bashrc:3"
+        },
+        {
+          "kind": "open-url",
+          "label": "Provider's usage page",
+          "target": "https://console.groq.com/settings/usage"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://console.groq.com/docs/quickstart"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "clear-secret/groq/.bashrc:3"
+        ]
+      }
+    },
+    {
+      "id": "clear-secret/openai/.bashrc:1",
+      "severity": 2,
+      "kind": "clear-secret",
+      "title": "OpenAI key in clear",
+      "subject": {
+        "kind": "other",
+        "label": "OpenAI · OPENAI_API_KEY · ~/.bashrc"
+      },
+      "detail": "`OPENAI_API_KEY` = sk-proj-…bbbb at ~/.bashrc line 1 (mode 644); git: not in a repository",
+      "evidence": [
+        {
+          "label": "/home/someone/.bashrc",
+          "path": "/home/someone/.bashrc",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "prefer a secrets manager or the host's own login; a key in a start-up file is inherited by every process"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/someone/.bashrc:1"
+        },
+        {
+          "kind": "open-url",
+          "label": "Provider's usage page",
+          "target": "https://platform.openai.com/usage"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://developers.openai.com/api/reference/overview"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "clear-secret/openai/.bashrc:1"
+        ]
+      }
+    },
+    {
+      "id": "shared-key/aws/cbe17a3f",
+      "severity": 2,
+      "kind": "shared-key",
+      "title": "the same AWS (Bedrock) key in 4 places",
+      "subject": {
+        "kind": "other",
+        "label": "AWS (Bedrock) · ••••••••"
+      },
+      "detail": "key •••••••• (fingerprint cbe17a3f, this run only) found in: env:AWS_ACCESS_KEY_ID, env:AWS_SECRET_ACCESS_KEY, env:GH_TOKEN, env:GITHUB_TOKEN",
+      "evidence": [
+        {
+          "label": "env:AWS_ACCESS_KEY_ID",
+          "path": "env:AWS_ACCESS_KEY_ID"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "one key per tool makes rotation and revocation local; create separate keys in the provider's console"
+        },
+        {
+          "kind": "open-url",
+          "label": "Provider's usage page",
+          "target": "https://console.aws.amazon.com/billing/"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "shared-key/aws/cbe17a3f"
+        ]
+      }
+    },
+    {
+      "id": "shared-key/groq/07a8193c",
+      "severity": 2,
+      "kind": "shared-key",
+      "title": "the same Groq key in 2 places",
+      "subject": {
+        "kind": "other",
+        "label": "Groq · gsk_…MNOP"
+      },
+      "detail": "key gsk_…MNOP (fingerprint 07a8193c, this run only) found in: ~/.bashrc, ~/proj/.env",
+      "evidence": [
+        {
+          "label": "/home/someone/.bashrc",
+          "path": "/home/someone/.bashrc",
+          "line": 3
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "one key per tool makes rotation and revocation local; create separate keys in the provider's console"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/someone/.bashrc:3"
+        },
+        {
+          "kind": "open-url",
+          "label": "Provider's usage page",
+          "target": "https://console.groq.com/settings/usage"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "shared-key/groq/07a8193c"
+        ]
+      }
+    },
+    {
+      "id": "expired/opencode/.local/share/opencode/opencode.db",
+      "severity": 2,
+      "kind": "expired",
+      "title": "OpenCode: OpenAI session expired",
+      "subject": {
+        "kind": "host",
+        "label": "OpenCode · ~/.local/share/opencode/opencode.db"
+      },
+      "detail": "expiry 2020-09-13T12:26:40Z is past; the host refreshes or asks for a new login",
+      "evidence": [
+        {
+          "label": "/home/someone/.local/share/opencode/opencode.db",
+          "path": "/home/someone/.local/share/opencode/opencode.db"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "log in again from the host if it no longer refreshes by itself"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/someone/.local/share/opencode/opencode.db"
+        },
+        {
+          "kind": "command",
+          "label": "Check in the host: opencode auth list",
+          "target": "opencode auth list"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://github.com/sst/opencode/blob/dev/packages/core/src/credential/sql.ts"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "expired/opencode/.local/share/opencode/opencode.db"
+        ]
+      }
+    },
+    {
+      "id": "double-credit/codex/openai",
+      "severity": 2,
+      "kind": "double-credit",
+      "title": "Codex CLI: subscription and OpenAI API key both present",
+      "subject": {
+        "kind": "host",
+        "label": "Codex CLI · OpenAI"
+      },
+      "detail": "logged in on Codex CLI (plan plus) and `OPENAI_API_KEY` is set in ~/.bashrc — the host decides which credential it uses",
+      "evidence": [
+        {
+          "label": "/home/someone/.bashrc",
+          "path": "/home/someone/.bashrc",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "check which credential the host reports as in use; unset the key for this host if the plan should pay"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/someone/.bashrc:1"
+        },
+        {
+          "kind": "command",
+          "label": "Check in the host: codex login status; codex, then /status (remaining limits)",
+          "target": "codex login status; codex, then /status (remaining limits)"
+        },
+        {
+          "kind": "open-url",
+          "label": "Provider's usage page",
+          "target": "https://platform.openai.com/usage"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://learn.chatgpt.com/docs/auth.md"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "double-credit/codex/openai"
+        ]
+      }
+    },
+    {
+      "id": "double-credit/opencode/openai",
+      "severity": 2,
+      "kind": "double-credit",
+      "title": "OpenCode: subscription and OpenAI API key both present",
+      "subject": {
+        "kind": "host",
+        "label": "OpenCode · OpenAI"
+      },
+      "detail": "logged in on OpenCode (a subscription) and `OPENAI_API_KEY` is set in ~/.bashrc — the host decides which credential it uses",
+      "evidence": [
+        {
+          "label": "/home/someone/.bashrc",
+          "path": "/home/someone/.bashrc",
+          "line": 1
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "check which credential the host reports as in use; unset the key for this host if the plan should pay"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/someone/.bashrc:1"
+        },
+        {
+          "kind": "command",
+          "label": "Check in the host: opencode auth list",
+          "target": "opencode auth list"
+        },
+        {
+          "kind": "open-url",
+          "label": "Provider's usage page",
+          "target": "https://platform.openai.com/usage"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://github.com/sst/opencode/blob/dev/packages/core/src/credential/sql.ts"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "double-credit/opencode/openai"
+        ]
+      }
+    },
+    {
+      "id": "unpriced/claude-code/claude-mystery-9",
+      "severity": 2,
+      "kind": "unpriced",
+      "title": "claude-mystery-9: not in the price table",
+      "subject": {
+        "kind": "host",
+        "label": "Claude Code · claude-mystery-9"
+      },
+      "detail": "24 k tokens in 1 request(s) counted, no dollar equivalent (API Price Index snapshot of 2026-10-17T14:15:04Z)",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "the model id is as the host wrote it; a newer Billfold or a newer snapshot of the index may know it"
+        },
+        {
+          "kind": "open-url",
+          "label": "Provider's usage page",
+          "target": "https://apipriceindex.com/"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "unpriced/claude-code/claude-mystery-9"
+        ]
+      }
+    },
+    {
+      "id": "pruning-soon/claude-code",
+      "severity": 3,
+      "kind": "pruning-soon",
+      "title": "Claude Code: 1 log file(s) deleted within 5 day(s)",
+      "subject": {
+        "kind": "host",
+        "label": "Claude Code"
+      },
+      "detail": "1 request(s) in 1 file(s) are older than the host's retention minus 7 days (`cleanupPeriodDays`)",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "raise `cleanupPeriodDays` in the host's settings if you want to keep the history — Billfold does not copy logs"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://code.claude.com/docs/en/sessions"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "pruning-soon/claude-code"
+        ]
+      }
+    },
+    {
+      "id": "host-disagrees/opencode/deepseek-v4-pro",
+      "severity": 3,
+      "kind": "host-disagrees",
+      "title": "OpenCode: its own cost for deepseek-v4-pro differs by 91 %",
+      "subject": {
+        "kind": "host",
+        "label": "OpenCode · deepseek-v4-pro"
+      },
+      "detail": "the host wrote $9.99, Billfold estimates $0.86 at the API Price Index prices of 2026-10-17T14:15:04Z",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "a different price table on the host's side, a promotion, a tier or a provider-reported figure; the host's number is what it was charged if it came from the provider"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://github.com/sst/opencode/blob/dev/packages/core/src/session/sql.ts"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "host-disagrees/opencode/deepseek-v4-pro"
+        ]
+      }
+    },
+    {
+      "id": "near-limit/codex/primary",
+      "severity": 3,
+      "kind": "near-limit",
+      "title": "Codex CLI: primary window at 91 % the last time it was written",
+      "subject": {
+        "kind": "host",
+        "label": "Codex CLI · primary window"
+      },
+      "detail": "91 % used of a 300-minute window, resets at 2029-11-22T00:00:00Z (plan plus) — as the host wrote it on 2026-10-17T13:05:10Z",
+      "evidence": [
+        {
+          "label": "/home/someone/.codex/sessions/2026/10/17/rollout-2026-10-17T09-00-00-abc.jsonl",
+          "path": "/home/someone/.codex/sessions/2026/10/17/rollout-2026-10-17T09-00-00-abc.jsonl"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "a snapshot, not a live figure; the host's own status command has the current one"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/someone/.codex/sessions/2026/10/17/rollout-2026-10-17T09-00-00-abc.jsonl"
+        },
+        {
+          "kind": "command",
+          "label": "Check in the host: codex login status; codex, then /status (remaining limits)",
+          "target": "codex login status; codex, then /status (remaining limits)"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://github.com/openai/codex/blob/main/codex-rs/rollout/src/recorder.rs"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "near-limit/codex/primary"
+        ]
+      }
+    },
+    {
+      "id": "legacy-store/opencode/.local/share/opencode/auth.json",
+      "severity": 3,
+      "kind": "legacy-store",
+      "title": "OpenCode: an older credential file is still there",
+      "subject": {
+        "kind": "host",
+        "label": "OpenCode · ~/.local/share/opencode/auth.json"
+      },
+      "detail": "Legacy store the documentation still names; each top-level key is a provider id with {type: oauth|api|wellknown, …}.",
+      "evidence": [
+        {
+          "label": "/home/someone/.local/share/opencode/auth.json",
+          "path": "/home/someone/.local/share/opencode/auth.json"
+        }
+      ],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "if the host no longer reads it, delete ~/.local/share/opencode/auth.json yourself — Billfold never deletes"
+        },
+        {
+          "kind": "open-file",
+          "label": "Open file",
+          "target": "/home/someone/.local/share/opencode/auth.json"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://github.com/sst/opencode/blob/dev/packages/core/src/credential/sql.ts"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "legacy-store/opencode/.local/share/opencode/auth.json"
+        ]
+      }
+    },
+    {
+      "id": "no-usage-log/cursor",
+      "severity": 4,
+      "kind": "no-usage-log",
+      "title": "Cursor: no usage log on this machine",
+      "subject": {
+        "kind": "host",
+        "label": "Cursor"
+      },
+      "detail": "Cursor keeps no per-request token counts on disk; its local store holds chat text and the auth token. Usage and token breakdowns are on the web dashboard.",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "hint",
+          "label": "usage is shown at https://cursor.com/dashboard"
+        },
+        {
+          "kind": "command",
+          "label": "Check in the host: agent status",
+          "target": "agent status"
+        },
+        {
+          "kind": "open-url",
+          "label": "Provider's usage page",
+          "target": "https://cursor.com/dashboard"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://github.com/vypdev/cursor-accounts/blob/main/src/auth/cursorPaths.ts"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "no-usage-log/cursor"
+        ]
+      }
+    },
+    {
+      "id": "in-keyring/copilot",
+      "severity": 4,
+      "kind": "in-keyring",
+      "title": "GitHub Copilot: secrets in the system keyring",
+      "subject": {
+        "kind": "host",
+        "label": "GitHub Copilot"
+      },
+      "detail": "By default, the CLI stores your OAuth token in your operating system's keychain under the service name `copilot-cli` — Billfold does not read the keyring",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "command",
+          "label": "Check in the host: copilot, then /user and /usage; gh auth status",
+          "target": "copilot, then /user and /usage; gh auth status"
+        },
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/authenticate-copilot-cli"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "in-keyring/copilot"
+        ]
+      }
+    },
+    {
+      "id": "in-keyring/goose",
+      "severity": 4,
+      "kind": "in-keyring",
+      "title": "Goose: secrets in the system keyring",
+      "subject": {
+        "kind": "host",
+        "label": "Goose"
+      },
+      "detail": "KEYRING_SERVICE = \"goose\" — Billfold does not read the keyring",
+      "evidence": [],
+      "actions": [
+        {
+          "kind": "open-url",
+          "label": "Source of this rule",
+          "target": "https://github.com/block/goose/blob/main/crates/goose/src/config/base.rs"
+        }
+      ],
+      "open": {
+        "app": "billfold-app",
+        "args": [
+          "--select",
+          "in-keyring/goose"
+        ]
+      }
+    }
+  ],
+  "notes": [
+    "hosts present: Claude Code, Codex CLI, Cursor, GitHub Copilot, Goose, OpenCode",
+    "6 provider(s) wired, 7 account(s), 8 key(s), 6 usage line(s), 5 log file(s)",
+    "prices: API Price Index snapshot of 2026-10-17T14:15:04Z (CC BY 4.0, API Price Index (https://apipriceindex.com)); dollars are API-equivalent estimates"
+  ],
+  "errors": []
+}
