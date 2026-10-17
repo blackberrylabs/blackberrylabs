@@ -1,3 +1,5 @@
 /target
 **/*.rs.bk
 /00_cadrage/
+/dist
+/packaging/.tools
